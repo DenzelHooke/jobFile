@@ -4,11 +4,19 @@ import User from './interfaces/users.interfaces';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserModel, modelName } from 'src/schemas/User.schema';
 import { Model } from 'mongoose';
-import { createECDH } from 'crypto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(modelName) readonly userModel: Model<UserModel>) {}
+
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.userModel.findById({ email: email });
+  }
+
+  async findByID(id: string): Promise<User | null> {
+    return await this.userModel.findById({ _id: id });
+  }
 
   async createOne(createUserDto: CreateUserDto): Promise<User> {
     if (await this.userModel.find({ email: createUserDto.email })) {

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema, modelName } from 'src/schemas/User.schema';
 import { UsersService } from './users.service';
+import { UsersController } from './users.controller';
 
 @Module({
   imports: [
@@ -15,5 +15,7 @@ import { UsersService } from './users.service';
   ],
   controllers: [UsersController],
   providers: [UsersService],
+  // Exports allows a class to be exported/used outside of it's folder so I can use it in my auth controller for example.
+  exports: [UsersService],
 })
 export class UsersModule {}
