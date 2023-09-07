@@ -4,7 +4,6 @@ import User from './interfaces/users.interfaces';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserModel, modelName } from 'src/schemas/User.schema';
 import { Model } from 'mongoose';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
