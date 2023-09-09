@@ -7,7 +7,7 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
-import { CreateUserDto } from 'src/users/dto/User.dto';
+import { CreateUserDto, LoginUserDto } from 'src/users/dto/User.dto';
 import User from 'src/users/interfaces/users.interfaces';
 import { UsersService } from 'src/users/users.service';
 import Auth from './interfaces/auth.interfaces';
@@ -20,7 +20,13 @@ export class AuthController {
     private readonly authService: AuthService) {}
 
   @Post('register')
-  createOne(@Body() createUserDto: CreateUserDto): Promise<Auth | null> {
+  register(@Body() createUserDto: CreateUserDto): Promise<Auth | null> {
     return this.authService.register(createUserDto);
   }
+
+  @Post('login')
+  signIn(@Body() loginUserDto: LoginUserDto): Promise<Auth | null> {
+    return this.authService.signIn(loginUserDto);
+  }
+  
 }

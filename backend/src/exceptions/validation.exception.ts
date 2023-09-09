@@ -6,3 +6,14 @@ export class UserExistsException extends HttpException {
     }
 }
 
+export class CredentialsNotFound extends HttpException {
+    constructor() {
+        super(`No user found with those credentials`, HttpStatus.FORBIDDEN)
+    }
+}
+
+export class InvalidPassword extends HttpException {
+    constructor() {
+        super(`Invalid Password`, HttpStatus.FORBIDDEN)
+    }
+}

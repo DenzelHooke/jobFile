@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from 'src/users/dto/User.dto';
+import { CreateUserDto, LoginUserDto } from 'src/users/dto/User.dto';
 import Auth from './interfaces/auth.interfaces';
 import { UsersService } from 'src/users/users.service';
 import { HttpStatus } from '@nestjs/common';
-import { UserExistsException } from 'src/exceptions/validation.exception';
-
+import { UserExistsException, CredentialsNotFound, InvalidPassword } from 'src/exceptions/validation.exception';
+import * as bcrypt from 'bcrypt';
+import { comparePassword } from 'src/helper/helperFuns';
 
 
 @Injectable()
@@ -32,5 +33,29 @@ export class AuthService {
     };
 
     return response
+  }
+
+  async signIn(loginUserDto: LoginUserDto): Promise<Auth | null> {
+    const userExists = await this.usersService.findByEmail(loginUserDto.email)
+    
+    if(!userExists) {
+      throw new CredentialsNotFound()
+    } 
+
+    const isValid = await comparePassword(loginUserDto.password, userExists.password)
+
+    if(isValid) {
+      const response:Auth = {
+        username: userExists.username,
+        id: userExists.id,
+        token: ''
+      }
+
+      return response
+    } 
+
+    throw new InvalidPassword()
+  
+  
   }
 }
