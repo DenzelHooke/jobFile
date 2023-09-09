@@ -1,30 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/User.dto';
-import User from 'src/users/interfaces/users.interfaces';
-import { UserModel, modelName } from 'src/schemas/User.schema';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import Auth from './interfaces/auth.interfaces';
 import { UsersService } from 'src/users/users.service';
+import { HttpStatus } from '@nestjs/common';
+import { UserExistsException } from 'src/exceptions/validation.exception';
+
+
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(modelName) private readonly userModel: Model<UserModel>,
     private usersService: UsersService,
   ) {}
 
+
+
   async register(createUserDto: CreateUserDto): Promise<Auth | null> {
-    const newUser = await this.usersService.findByEmail(createUserDto.email);
+    const userExist = await this.usersService.findByEmail(createUserDto.email);
 
-    if (newUser) {
-      return {
-        id: newUser.id,
-        username: newUser.username,
-        token: '1111',
-      };
-    }
+    // User with email already exists so reject register attempt
+    if (userExist) {
+        throw new UserExistsException('email')
+    } 
 
-    return null;
+    const newUser = await this.usersService.createOne(createUserDto);
+
+    const response:Auth = {
+      id: newUser.id,
+      username: newUser.username,
+      token: '1234',
+    };
+
+    return response
   }
 }

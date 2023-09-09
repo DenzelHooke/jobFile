@@ -4,24 +4,33 @@ import User from './interfaces/users.interfaces';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserModel, modelName } from 'src/schemas/User.schema';
 import { Model } from 'mongoose';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(modelName) readonly userModel: Model<UserModel>) {}
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.userModel.findById({ email: email });
+    return await this.userModel.findOne({email: email});
   }
 
   async findByID(id: string): Promise<User | null> {
     return await this.userModel.findById({ _id: id });
   }
 
-  async createOne(createUserDto: CreateUserDto): Promise<User> {
-    if (await this.userModel.find({ email: createUserDto.email })) {
-    }
+  async createPassword(password: string): Promise<string> {
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds)
+    
+    return bcrypt.hash(password, salt)
+  }
 
-    const newUser = new this.userModel(createUserDto);
+  async createOne(createUserDto: CreateUserDto): Promise<User> {
+    const newUser = new this.userModel({
+      ...createUserDto,
+      password: await this.createPassword(createUserDto.password)
+    });
 
     return await newUser.save();
   }
