@@ -13,19 +13,17 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   register(@Body() createUserDto: CreateUserDto): Promise<Auth | null> {
-    console.log(createUserDto)
+    console.log(createUserDto);
     return this.authService.register(createUserDto);
   }
 
   @Post('login')
   signIn(@Body() loginUserDto: LoginUserDto): Promise<Auth | null> {
-    console.log(loginUserDto)
+    console.log(loginUserDto);
     return this.authService.signIn(loginUserDto);
   }
 }
