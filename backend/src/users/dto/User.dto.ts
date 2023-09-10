@@ -6,6 +6,6 @@ export interface CreateUserDto {
 }
 
 export interface LoginUserDto {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
 }

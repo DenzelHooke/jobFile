@@ -6,28 +6,22 @@ import { UserModel, modelName } from 'src/schemas/User.schema';
 import { Model } from 'mongoose';
 import { createPassword } from 'src/helper/helperFuns';
 
-
-
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel(modelName) readonly userModel: Model<UserModel>
-    ) {}
+  constructor(@InjectModel(modelName) readonly userModel: Model<UserModel>) {}
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.userModel.findOne({email: email});
+    return await this.userModel.findOne({ email: email });
   }
 
   async findByID(id: string): Promise<User | null> {
     return await this.userModel.findById({ _id: id });
   }
 
-
-
   async createOne(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new this.userModel({
       ...createUserDto,
-      password: await createPassword(createUserDto.password)
+      password: await createPassword(createUserDto.password),
     });
 
     return await newUser.save();
