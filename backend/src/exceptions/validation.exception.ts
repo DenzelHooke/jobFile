@@ -17,3 +17,9 @@ export class InvalidPassword extends HttpException {
     super(`Invalid Password`, HttpStatus.FORBIDDEN);
   }
 }
+
+export class UnkownError extends HttpException {
+  constructor(error: string) {
+    super(error, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+}

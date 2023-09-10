@@ -15,12 +15,16 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  // POST
+  // Public endpoint
   @Post('register')
   register(@Body() createUserDto: CreateUserDto): Promise<Auth | null> {
     console.log(createUserDto);
     return this.authService.register(createUserDto);
   }
 
+  // POST
+  // Public endpoint
   @Post('login')
   signIn(@Body() loginUserDto: LoginUserDto): Promise<Auth | null> {
     console.log(loginUserDto);
