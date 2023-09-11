@@ -11,6 +11,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { comparePassword } from 'src/helper/helperFuns';
 import { JwtService } from '@nestjs/jwt';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,10 @@ export class AuthService {
 
   // POST
   // Public endpoint
-  async register(createUserDto: CreateUserDto): Promise<Auth | null> {
+  async register(
+    createUserDto: CreateUserDto,
+    response: Response,
+  ): Promise<Auth | null> {
     // Check if a user with the provided email already exists
     const userExist = await this.usersService.findByEmail(createUserDto.email);
 
@@ -29,7 +33,7 @@ export class AuthService {
     if (userExist) {
       throw new UserExistsException('email');
     }
-    console.log(createUserDto);
+
     // If the user doesn't exist, create a new user using the provided DTO
     const newUser = await this.usersService.createOne(createUserDto);
 
@@ -50,7 +54,10 @@ export class AuthService {
 
   // POST
   // Public endpoint
-  async signIn(loginUserDto: LoginUserDto): Promise<Auth | null> {
+  async signIn(
+    loginUserDto: LoginUserDto,
+    response: Response,
+  ): Promise<Auth | null> {
     // Check if user with matching email exists
     const userExists = await this.usersService.findByEmail(loginUserDto.email);
 
@@ -80,8 +87,8 @@ export class AuthService {
     return {
       id: userExists.id, // Assign the user's ID
       username: userExists.username, // Assign the user's username
-      email: userExists.email, // Assign the user's email
-      token: await this.jwtService.signAsync(payload), // Assign the user's token
+      email: userExists.email, // Assign the user's email // Assign the user's token
+      token: await this.jwtService.signAsync(payload),
     } as Auth;
   }
 }
