@@ -74,7 +74,7 @@ const Page = () => {
     onError('Posts failed to load.');
     return <div>Error loading posts.</div>;
   }
-  if (postsQuery.isSuccess) {
+  if (postsQuery.data && postsQuery.isSuccess) {
     onFetch('Data fetched successfully');
   }
 
