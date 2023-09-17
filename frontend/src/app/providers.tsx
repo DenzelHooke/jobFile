@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Provider } from 'react-redux';
+import { store } from './store';
 interface MyComponentProps {
   children: ReactNode;
 }
@@ -15,11 +16,13 @@ const Providers = ({ children }: MyComponentProps) => {
 
   return (
     <>
-      <ToastContainer />
-      <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools />
-      </QueryClientProvider>
+      <Provider store={store}>
+        <ToastContainer />
+        <QueryClientProvider client={queryClient}>
+          {children}
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </Provider>
     </>
   );
 };
