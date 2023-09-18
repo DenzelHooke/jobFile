@@ -1,0 +1,30 @@
+.entryForm {
+  max-height: 600px;
+  flex: 100;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  //   background-color: aqua;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.container {
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  //   background-color: red;
+  height: 100%;
+}
+
+.formContent {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .inner-auth-container {
+    justify-content: center;
+  }
+}

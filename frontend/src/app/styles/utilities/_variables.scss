@@ -1,18 +1,12 @@
 // Color Variables
-$color-caribbean: #006d77ff;
-$color-tiffany: #83c5beff;
-$color-alice: #edf6f9ff;
-$color-pale-dogwood: #ffddd2ff;
-$color-atomic-tangerine: #e29578ff;
 $color-greenery: #04724d;
-$color-wary-orange: #ff9505;
 $color-bad-orange: #ec4e20;
 $color-york-yellow: #ffb13c;
-$color-york-yellow-darken: #de9a33;
 $color-rufous: #a72608;
 $color-faded-text: rgb(171, 171, 171);
-$color-darker-black: rgb(27, 27, 27);
-$color-brand-red: #f74e4e;
+$color-black: rgb(27, 27, 27);
+$color-brand: #2b5ee3;
+$color-grey: rgb(171, 171, 171);
 
 // Background Variables
 $bg-navbar: #141414;
@@ -27,11 +21,13 @@ $size-title: 60px;
 $size-default-text: 16px;
 $size-button: 16px;
 
+$light-grey: #fafbfe;
+$dark-grey: #8694a9;
+$border-grey: #eff3f7;
+
 // Text Variables
-$text-dark-grey: #171717;
 $text-flat-black: #383838;
 $text-flat-grey: #353531;
-$text-light-grey: rgb(236, 236, 236);
 $text-lighter-grey: rgb(234, 234, 234);
 $text-light-light-grey: #737373;
 $text-border-grey: #d6d6d6;
@@ -45,4 +41,9 @@ $border-edge: rgb(156, 156, 156);
 $button-bg: hsl(214, 93%, 60%);
 $button-bg-hover: hsl(214, 93%, 50%);
 $button-border-rad: 50px;
-$card-border-rad: 10px;
+$input-border-rad: 2px;
+$border-radius: 6px;
+
+$inputHeight: 40px;
+$btn-hover-darken-percentage: 10%;
+$transition-speed: 50ms;
