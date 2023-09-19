@@ -131,6 +131,12 @@ body {
   background-color: #2b5ee3;
   border-radius: 6px;
 }
+.auth-form .button-wrapper button.no-hover {
+  cursor: default;
+}
+.auth-form .button-wrapper button.no-hover:hover {
+  background-color: #2b5ee3;
+}
 .auth-form .button-wrapper button:hover {
   background-color: #2851bb;
 }/*# sourceMappingURL=globals.css.map */

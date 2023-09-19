@@ -4,7 +4,18 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { NewUser } from '@/app/types/auth';
 import Link from 'next/link';
+import { resolve } from 'path';
+import { toast } from 'react-toastify';
 // import styles from '../styles/login.module.scss';
+
+const wait = () => {
+  //ms
+  const wait_time = 100000000;
+
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(true), wait_time);
+  });
+};
 
 const RegisterForm = () => {
   //States
@@ -21,6 +32,8 @@ const RegisterForm = () => {
         email,
         password,
       });
+
+      return await wait().then(() => true);
     },
   });
 
@@ -38,10 +51,25 @@ const RegisterForm = () => {
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    // Prevents submit auto-reload
     e.preventDefault();
+    if (!email || !username || !password) {
+      return;
+    }
+
+    registerMutation.mutate({
+      email,
+      username,
+      password,
+    });
+    // Prevents submit auto-reload
     console.log('SUBMIT!');
   };
+
+  if (registerMutation.isError) {
+    toast.error(registerMutation.data?.message);
+  } else if (registerMutation.isSuccess) {
+    toast.success('Account successfully created');
+  }
 
   return (
     <div id="register-form" className="auth-form">
@@ -88,8 +116,8 @@ const RegisterForm = () => {
           </div>
           <div className="button-wrapper">
             {registerMutation.isLoading ? (
-              <button type="submit" disabled className="button">
-                Loading
+              <button type="submit" disabled className="button no-hover">
+                Loading...
               </button>
             ) : (
               <button type="submit" className="button">

@@ -14,9 +14,9 @@ const RegisterDesign = () => {
     <div className={styles.design_panel} style={componentStyles}>
       <div className={styles.design_panel_inner}>
         <h2 className="heading-text">
-          Never lose track of your job applications again.
+          Never lose track of your job applications
         </h2>
-        <p>JobFile makes it easy to stay organized and land that dream job.</p>
+        <p>We make it easy to stay organized and land that dream job.</p>
       </div>
     </div>
   );

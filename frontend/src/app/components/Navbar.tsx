@@ -1,9 +1,18 @@
 import React from 'react';
-
-const componentStyles = {};
+import Link from 'next/link';
+import NavbarLinks from './NavbarLinks';
+import Image from 'next/image';
+import '@/app/styles/navbar.scss';
 
 const Navbar = () => {
-  return <div style={componentStyles}>Navbar</div>;
+  return (
+    <div id="navbar">
+      <div className="logo">
+        <Image src="./logo-no-background.svg" alt="Logo" fill />
+      </div>
+      <NavbarLinks />
+    </div>
+  );
 };
 
 export default Navbar;

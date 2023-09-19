@@ -1,0 +1,46 @@
+@import 'utilities/variables';
+
+#navbar {
+  display: flex;
+  padding: 5px;
+  height: 60px;
+
+  border-bottom: 1px solid $border-grey;
+
+  .logo {
+    display: none;
+    width: 100px;
+    min-height: 100%;
+    position: relative;
+    scale: 1.5;
+
+    svg {
+      scale: 1.2;
+    }
+  }
+
+  .navbar-links {
+    flex: 100;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      color: $color-brand;
+
+      li {
+        background-color: $color-brand;
+        padding: 5px 20px;
+        border-radius: $border-radius;
+
+        a {
+          text-decoration: none;
+          color: white;
+        }
+      }
+    }
+  }
+}
