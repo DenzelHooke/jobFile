@@ -1,5 +1,5 @@
-export interface NewUser {
-  username: string;
+export interface User {
+  username?: string;
   email: string;
   password: string;
   avatar?: string;

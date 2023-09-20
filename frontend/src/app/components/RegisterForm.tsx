@@ -1,11 +1,13 @@
 'use client';
-import { useRef, ChangeEvent, FormEvent, useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { NewUser } from '@/app/types/auth';
+import { User } from '@/app/types/auth';
 import Link from 'next/link';
-import { resolve } from 'path';
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setError, setSuccess } from '@/features/global/globalSlice';
+import { AxiosError } from 'axios';
+
 // import styles from '../styles/login.module.scss';
 
 const wait = () => {
@@ -22,12 +24,13 @@ const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   //Queries/muations
   const queryClient = useQueryClient();
   const registerMutation = useMutation({
-    mutationFn: async ({ username, email, password }: NewUser) => {
-      return axios.post('auth/register/', {
+    mutationFn: async ({ username, email, password }: User) => {
+      return await axios.post('auth/register/', {
         username,
         email,
         password,
@@ -51,28 +54,32 @@ const RegisterForm = () => {
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    // Prevents submit auto-reload
     e.preventDefault();
     if (!email || !username || !password) {
       return;
     }
 
+    //Send data to backend api
     registerMutation.mutate({
       email,
       username,
       password,
     });
-    // Prevents submit auto-reload
-    console.log('SUBMIT!');
   };
 
   if (registerMutation.isError) {
-    toast.error(registerMutation.data?.message);
+    const errorResponse = registerMutation.error as any;
+
+    // Set error with error message from backend
+    dispatch(setError(errorResponse.response?.data?.message));
   } else if (registerMutation.isSuccess) {
-    toast.success('Account successfully created');
+    // Set success with success message
+    dispatch(setSuccess('Account created succesfully'));
   }
 
   return (
-    <div id="register-form" className="auth-form">
+    <div id="register-form" className="auth-form max-80">
       <div className="heading">
         <h2 className="heading-text">Create an Account</h2>
         <small className="accent-text small-text">

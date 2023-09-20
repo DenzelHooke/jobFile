@@ -4,7 +4,9 @@ import Login from '../components/LoginForm';
 const Page = () => {
   return (
     <div className="container">
-      <Login />
+      <section className="section align-center justify-center">
+        <Login />
+      </section>
     </div>
   );
 };

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <>
-      <section className="section">
+      <section className="section bg">
         <EntryForm
           designContainer={<RegisterDesign />}
           form={<RegisterForm />}

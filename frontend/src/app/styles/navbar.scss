@@ -4,6 +4,10 @@
   display: flex;
   padding: 5px;
   height: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
 
   border-bottom: 1px solid $border-grey;
 

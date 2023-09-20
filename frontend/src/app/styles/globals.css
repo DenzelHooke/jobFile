@@ -65,6 +65,9 @@ body {
 .section {
   height: 100vh;
   padding: 10px;
+}
+
+.bg {
   background-size: 100% 100%;
   background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
   background-image: linear-gradient(1deg, black 0%, rgba(7, 58, 255, 0) 100%), radial-gradient(142% 91% at 83% 7%, #303030 1%, rgba(255, 0, 0, 0) 99%), radial-gradient(142% 91% at -6% 74%, black 1%, black 99%), radial-gradient(142% 91% at 111% 84%, black 0%, black 100%);
@@ -94,10 +97,23 @@ body {
   width: 100%;
 }
 
+.max-80 {
+  max-width: 80%;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
 .auth-form {
   flex: 100;
   align-items: center;
-  max-width: 80%;
   margin-bottom: 20px;
 }
 .auth-form .heading {
@@ -139,4 +155,8 @@ body {
 }
 .auth-form .button-wrapper button:hover {
   background-color: #2851bb;
+}
+
+#login-form {
+  max-width: 60%;
 }/*# sourceMappingURL=globals.css.map */

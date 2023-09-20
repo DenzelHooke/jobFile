@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import StateWatcher from './components/StateWatcher';
 interface MyComponentProps {
   children: ReactNode;
 }
@@ -18,6 +19,7 @@ const Providers = ({ children }: MyComponentProps) => {
     <>
       <Provider store={store}>
         <ToastContainer />
+        <StateWatcher />
         <QueryClientProvider client={queryClient}>
           {children}
           <ReactQueryDevtools />
