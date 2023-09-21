@@ -1,5 +1,5 @@
 'use client';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { User } from '@/app/types/auth';
@@ -49,15 +49,17 @@ const LoginForm = () => {
     });
   };
 
-  if (loginMutation.isError) {
-    const errorResponse = loginMutation.error as any;
+  useEffect(() => {
+    if (loginMutation.isError) {
+      const errorResponse = loginMutation.error as any;
 
-    // Set error with error message from backend
-    dispatch(setError(errorResponse.response?.data?.message));
-  } else if (loginMutation.isSuccess) {
-    // Set success with success message
-    dispatch(setSuccess('Account created succesfully'));
-  }
+      // Set error with error message from backend
+      dispatch(setError(errorResponse.response?.data?.message));
+    } else if (loginMutation.isSuccess) {
+      // Set success with success message
+      dispatch(setSuccess('Account created succesfully'));
+    }
+  }, [loginMutation.isError, setError, setSuccess]);
 
   return (
     <div id="login-form" className="auth-form">
