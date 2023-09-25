@@ -7,11 +7,13 @@ import {
   Body,
   Param,
   Res,
+  Req,
 } from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from 'src/users/dto/User.dto';
 import Auth from './interfaces/auth.interfaces';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
+import { Response, Request } from 'express';
+import { request } from 'http';
 
 @Controller('auth')
 export class AuthController {
@@ -59,5 +61,15 @@ export class AuthController {
     }
 
     return res;
+  }
+
+  // GET
+  // Public endpoint
+  @Get('authenticate')
+  async authorize(@Req() request: Request): Promise<any> {
+    console.log(request.cookies);
+    // const res = await this.authService.authorize(request);
+
+    // return res;
   }
 }

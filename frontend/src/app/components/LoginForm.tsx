@@ -6,11 +6,13 @@ import { User } from '@/app/types/auth';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { setError, setSuccess } from '@/features/global/globalSlice';
-import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 // import styles from '../styles/login.module.scss';
 
 const LoginForm = () => {
+  const Router = useRouter();
+
   //States
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,9 +59,11 @@ const LoginForm = () => {
       dispatch(setError(errorResponse.response?.data?.message));
     } else if (loginMutation.isSuccess) {
       // Set success with success message
+      console.log('success');
       dispatch(setSuccess('Account created succesfully'));
+      Router.push('/dashboard');
     }
-  }, [loginMutation.isError, setError, setSuccess]);
+  }, [loginMutation.isError, loginMutation.isSuccess, setError, setSuccess]);
 
   return (
     <div id="login-form" className="auth-form">

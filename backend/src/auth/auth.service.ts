@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from 'src/users/dto/User.dto';
 import Auth from './interfaces/auth.interfaces';
 import { UsersService } from 'src/users/users.service';
-import { HttpStatus } from '@nestjs/common';
 import {
   UserExistsException,
   CredentialsNotFound,
@@ -90,5 +89,13 @@ export class AuthService {
       email: userExists.email, // Assign the user's email // Assign the user's token
       token: await this.jwtService.signAsync(payload),
     } as Auth;
+  }
+
+  // GET
+  // Public endpoint
+  async authorize(request: Request): Promise<Boolean> {
+    console.log(request.cookies);
+
+    return true;
   }
 }
