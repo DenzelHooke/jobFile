@@ -8,10 +8,13 @@ import axios from 'axios';
 const Redirect = () => {
   const authQuery = useQuery({
     queryKey: ['auth'],
-    queryFn: () => {
+    queryFn: async () => {
       console.log('RUNNING AUTH QUERY');
-      axios.get('/auth/authenticate/');
+      return await axios.get('/auth/authenticate/', {
+        withCredentials: true,
+      });
     },
+    retry: false,
   });
 
   useEffect(() => {

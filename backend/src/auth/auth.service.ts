@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Redirect } from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from 'src/users/dto/User.dto';
 import Auth from './interfaces/auth.interfaces';
 import { UsersService } from 'src/users/users.service';
@@ -93,9 +93,21 @@ export class AuthService {
 
   // GET
   // Public endpoint
-  async authorize(request: Request): Promise<Boolean> {
-    console.log(request.cookies);
+  async authorize(request: Request, response: Response): Promise<Boolean> {
+    try {
+      console.log('COOKIES: ', request.cookies);
+      const token = request.cookies['token'];
 
-    return true;
+      const isValid = await this.jwtService.verifyAsync(token);
+
+      if (!isValid) {
+        throw new CredentialsNotFound();
+      }
+      return isValid;
+    } catch (error) {
+      console.log(error);
+
+      throw new CredentialsNotFound();
+    }
   }
 }

@@ -52,6 +52,7 @@ export class AuthController {
 
     // Sets cookie *only if* promise resolves as true (eg. no error throws)
     if (res) {
+      // 1 month
       const expiration_date = 30 * 24 * 60 * 60 * 1000;
 
       response.cookie('token', res?.token, {
@@ -66,10 +67,14 @@ export class AuthController {
   // GET
   // Public endpoint
   @Get('authenticate')
-  async authorize(@Req() request: Request): Promise<any> {
-    console.log(request.cookies);
-    // const res = await this.authService.authorize(request);
+  async authorize(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<any> {
+    console.log('REQUEST: ', request);
 
-    // return res;
+    return await this.authService.authorize(request, response);
+
+    // response.status(200).json(res);
   }
 }
