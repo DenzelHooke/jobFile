@@ -2,6 +2,11 @@ import React from 'react';
 import Redirect from '../components/Redirect';
 import { redirect } from 'next/navigation';
 import axios from 'axios';
+import '../styles/dashboard.scss';
+import FilterJobs from '../components/FilterJobs';
+import SearchJobs from '../components/SearchJobs';
+import DisplayJobs from '../components/DisplayJobs';
+
 const verifyUser = async () => {
   try {
     const isAuth = await axios.get(
@@ -30,7 +35,15 @@ const Page = async () => {
   return (
     <>
       <Redirect />
-      <div>Dashboard</div>
+      <section id="dashboard">
+        <div className="dashboard__sidebar">
+          <FilterJobs />
+        </div>
+        <div className="dashboard__content">
+          <SearchJobs />
+          <DisplayJobs />
+        </div>
+      </section>
     </>
   );
 };

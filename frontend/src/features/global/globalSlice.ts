@@ -17,11 +17,11 @@ export const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
-    setError: (state, action: PayloadAction<string>) => {
+    setError: (state, action) => {
       state.isError = true;
       state.message = action.payload;
     },
-    setSuccess: (state, action: PayloadAction<string>) => {
+    setSuccess: (state, action) => {
       state.isSuccess = true;
       state.message = action.payload;
     },
