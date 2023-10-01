@@ -111,6 +111,15 @@ body {
   justify-content: center;
 }
 
+.bgBlue {
+  background-color: #2b5ee3;
+  color: white;
+}
+
+.pill-round {
+  border-radius: 50%;
+}
+
 .auth-form {
   flex: 100;
   align-items: center;

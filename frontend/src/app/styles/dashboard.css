@@ -1,23 +1,16 @@
-@import './utilities/variables';
-
 #dashboard {
   min-height: calc(100vh - 60px);
   display: grid;
   grid-template-columns: 250px 1fr;
-
-  background-color: $color-flat-grey;
+  background-color: #fafafa;
 }
 
 .dashboard__data {
-  // display: grid;
   background-color: white;
   height: 100%;
   padding: 20px;
 }
 
-// .dashboard__content {
-//   padding: 20px;
-// }
 .dashboard__data__header {
   display: flex;
   gap: 10px;
@@ -47,33 +40,22 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
   gap: 20px;
-
-  .job_item {
-    max-width: 200px;
-    padding: 2px 20px;
-    background-color: white;
-    border-radius: 10px;
-
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-    transition: all ease-in-out $transition-speed;
-    &:hover {
-      cursor: pointer;
-      background-color: rgb(244, 244, 244);
-    }
-
-    .job__item__title {
-      // color: white;
-      font-weight: 600;
-    }
-
-    .job__item__subtitle {
-      // font-weight: 200;
-      // color: rgb(255, 255, 255);
-      font-size: 14px;
-    }
-  }
 }
-
-.modal {
+#dashboard__list__jobs .job_item {
+  max-width: 200px;
+  padding: 2px 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: all ease-in-out 50ms;
 }
+#dashboard__list__jobs .job_item:hover {
+  cursor: pointer;
+  background-color: rgb(244, 244, 244);
+}
+#dashboard__list__jobs .job_item .job__item__title {
+  font-weight: 600;
+}
+#dashboard__list__jobs .job_item .job__item__subtitle {
+  font-size: 14px;
+}/*# sourceMappingURL=dashboard.css.map */

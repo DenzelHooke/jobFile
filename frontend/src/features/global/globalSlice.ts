@@ -5,12 +5,14 @@ export interface GlobalState {
   isError: Boolean;
   isSuccess: Boolean;
   message: string;
+  isModal: Boolean;
 }
 
 const initialState: GlobalState = {
   isError: false,
   isSuccess: false,
   message: '',
+  isModal: false,
 };
 
 export const globalSlice = createSlice({
@@ -30,8 +32,11 @@ export const globalSlice = createSlice({
       state.isSuccess = false;
       state.message = '';
     },
+    setModal: (state, action) => {
+      state.isModal = action.payload;
+    },
   },
 });
 
-export const { setError, setSuccess, setReset } = globalSlice.actions;
+export const { setModal, setError, setSuccess, setReset } = globalSlice.actions;
 export default globalSlice.reducer;
