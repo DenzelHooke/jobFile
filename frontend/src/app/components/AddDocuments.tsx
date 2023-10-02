@@ -1,28 +1,38 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 
 import { CreateJobDto } from '../types/jobs';
 
 interface Props {
   jobData: CreateJobDto;
   setJobData: any;
+  current: string;
 }
 
-const AddDocuments = ({ jobData, setJobData }: Props) => {
+const AddDocuments = ({ setJobData, current }: Props) => {
   return (
     <>
-      <div className="form-inputs">
+      <div
+        className={`form-inputs ${
+          current.toLowerCase() !== 'documents' && 'hide'
+        }`}>
         <div className="form-wrapper">
           <label htmlFor="resume">Resume</label>
           <input
             id="resume"
             className="input"
             type="file"
-            value={jobData.resume}
-            onChange={(e) =>
-              setJobData((prevState: CreateJobDto) => {
-                return { ...prevState, [e.target.id]: e.target.value };
-              })
-            }
+            // value={jobData.resume?.name}
+            onChange={(e) => {
+              // Grabbing input file
+              const files = (e.target as HTMLInputElement).files;
+
+              if (files && files.length > 0) {
+                const file = files[0];
+                setJobData((prevState: any) => {
+                  return { ...prevState, [e.target.id]: file };
+                });
+              }
+            }}
             placeholder="Add File"
           />
         </div>
@@ -33,12 +43,18 @@ const AddDocuments = ({ jobData, setJobData }: Props) => {
             className="input"
             type="file"
             placeholder="Add File"
-            value={jobData.cover}
-            onChange={(e) =>
-              setJobData((prevState: any) => {
-                return { ...prevState, [e.target.id]: e.target.value };
-              })
-            }
+            // value={jobData.cover?.name}
+            onChange={(e) => {
+              const files = (e.target as HTMLInputElement).files;
+
+              if (files && files.length > 0) {
+                const file = files[0];
+                console.log(file);
+                setJobData((prevState: any) => {
+                  return { ...prevState, [e.target.id]: file };
+                });
+              }
+            }}
           />
         </div>
       </div>

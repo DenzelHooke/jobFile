@@ -5,13 +5,14 @@ import { CreateJobDto } from '../types/jobs';
 interface Props {
   jobData: CreateJobDto;
   setJobData: any;
-  jobMutation: any;
+  current: string;
 }
 
-const CreateJobMainForm = ({ jobData, setJobData, jobMutation }: Props) => {
+const CreateJobMainForm = ({ jobData, setJobData, current }: Props) => {
   return (
     <>
-      <div className="form-inputs">
+      <div
+        className={`form-inputs ${current.toLowerCase() !== 'info' && 'hide'}`}>
         <div className="form-wrapper">
           <label htmlFor="title">Position</label>
           <input

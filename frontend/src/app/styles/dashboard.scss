@@ -1,5 +1,9 @@
 @import './utilities/variables';
 
+.hide {
+  display: none;
+}
+
 #dashboard {
   min-height: calc(100vh - 60px);
   display: grid;
@@ -119,7 +123,9 @@
 
   flex: 100;
   width: 600px;
-
+  label {
+    display: block;
+  }
   input {
     width: 100%;
   }

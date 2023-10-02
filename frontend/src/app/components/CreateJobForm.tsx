@@ -1,5 +1,10 @@
 'use client';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, {
+  BaseSyntheticEvent,
+  FormEvent,
+  useEffect,
+  useState,
+} from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { setError, setSuccess } from '@/features/global/globalSlice';
@@ -7,6 +12,16 @@ import { useDispatch } from 'react-redux';
 import { CreateJobDto } from '../types/jobs';
 import CreateJobMainForm from './CreateJobMainForm';
 import AddDocuments from './AddDocuments';
+
+const createFormData = (jobData: any) => {
+  const formData = new FormData();
+  for (const key in jobData) {
+    console.log(key);
+    formData.append(key, jobData[key]);
+  }
+
+  return formData;
+};
 
 const CreateJobForm = () => {
   const dispatch = useDispatch();
@@ -18,28 +33,24 @@ const CreateJobForm = () => {
     location: '',
     color: '',
     salary: 0,
-    resume: '',
-    cover: '',
+    resume: null,
+    cover: null,
   });
+
   const jobMutation = useMutation({
-    mutationFn: async (data: CreateJobDto) => {
+    mutationFn: async (data: FormData) => {
       return await axios.post('/jobs/', data);
     },
   });
 
-  //Record tells the compiler thgat each key is a string and has a value of a JSX Element
-  const options: Record<string, JSX.Element> = {
-    info: (
-      <CreateJobMainForm
-        jobData={jobData}
-        jobMutation={jobMutation}
-        setJobData={setJobData}
-      />
-    ),
-    documents: <AddDocuments jobData={jobData} setJobData={setJobData} />,
-  };
-
   const [currentOption, setCurrentOption] = useState('info');
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = createFormData(jobData);
+
+    jobMutation.mutate(data);
+  };
 
   useEffect(() => {
     if (jobMutation.isError) {
@@ -52,10 +63,6 @@ const CreateJobForm = () => {
       dispatch(setSuccess('Job Created'));
     }
   }, [jobMutation.isError, jobMutation.isSuccess, setError, setSuccess]);
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    jobMutation.mutate(jobData);
-  };
 
   return (
     <div className="form dashboard__form">
@@ -79,7 +86,18 @@ const CreateJobForm = () => {
       </div>
       <div className="inner-form-container">
         <form onSubmit={(e) => onSubmit(e)}>
-          {options[`${currentOption}`]}
+          {/* {options[`${currentOption}`]} */}
+          <CreateJobMainForm
+            current={currentOption}
+            jobData={jobData}
+            setJobData={setJobData}
+          />
+
+          <AddDocuments
+            jobData={jobData}
+            setJobData={setJobData}
+            current={currentOption}
+          />
           <div className="button-wrapper">
             {jobMutation.isLoading ? (
               <button type="submit" disabled className="button no-hover">
