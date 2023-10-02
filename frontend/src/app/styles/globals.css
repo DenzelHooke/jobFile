@@ -120,49 +120,49 @@ body {
   border-radius: 50%;
 }
 
-.auth-form {
+.form {
   flex: 100;
   align-items: center;
   margin-bottom: 20px;
 }
-.auth-form .heading {
+.form .heading {
   margin-bottom: 50px;
   text-align: center;
 }
-.auth-form .accent-text {
+.form .accent-text {
   color: #353531;
 }
-.auth-form .form-wrapper label {
+.form .form-wrapper label {
   display: none;
 }
-.auth-form .form-wrapper input {
+.form .form-wrapper input {
   border-radius: 6px;
 }
-.auth-form .info-form {
+.form .info-form {
   margin-top: 10px;
 }
-.auth-form .info-form span {
+.form .info-form span {
   margin-left: 10px;
 }
-.auth-form .info-form span a {
+.form .info-form span a {
   color: #2b5ee3;
 }
-.auth-form .button-wrapper {
+.form .button-wrapper {
   color: white;
 }
-.auth-form .button-wrapper button {
+.form .button-wrapper button {
   height: 40px;
   color: inherit;
   background-color: #2b5ee3;
   border-radius: 6px;
 }
-.auth-form .button-wrapper button.no-hover {
+.form .button-wrapper button.no-hover {
   cursor: default;
 }
-.auth-form .button-wrapper button.no-hover:hover {
+.form .button-wrapper button.no-hover:hover {
   background-color: #2b5ee3;
 }
-.auth-form .button-wrapper button:hover {
+.form .button-wrapper button:hover {
   background-color: #2851bb;
 }
 

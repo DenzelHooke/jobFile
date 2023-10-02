@@ -23,8 +23,8 @@ export class JobsController {
   // Private endpoint
   @UseGuards(AuthGuard)
   @Get()
-  async getAll(): Promise<Job[]> {
-    return this.jobService.getAll();
+  async getAll(@Req() request: Request): Promise<Job[]> {
+    return this.jobService.getAll(request);
   }
 
   // POST

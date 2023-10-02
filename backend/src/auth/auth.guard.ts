@@ -21,28 +21,27 @@ export class AuthGuard implements CanActivate {
     // getRequest returns that object which contains data such as parameters, headers, url, etc.
     const request = context.switchToHttp().getRequest();
 
+    console.log(request.cookies);
     // Getting token string
-    const token =
-      request.headers.authorization &&
-      request.headers.authorization.split(' ')[1];
-
-    if (!token) {
-      throw new UnauthorizedException();
-    }
 
     try {
+      const token = request.cookies['token'];
+
+      if (!token) {
+        throw new UnauthorizedException();
+      }
+
       // Verifying token was not modified by client
+      // Decode jwtToken
       const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET,
       });
 
-      // Decode jwtToken
-      // const decodedJwt = this.jwtService.decode(payload) as PayloadType;
-      // console.log(payload);
       // Attach email from jwt to "user" parameter in request
       request['user'] = payload.sub;
+      console.log(payload.sub);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       throw new UnauthorizedException();
     }
 

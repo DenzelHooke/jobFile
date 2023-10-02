@@ -1,20 +1,23 @@
-import React from 'react';
+'use client';
 
-interface Job {
-  id?: string;
-  title: string;
-  company: string;
-  notes?: string;
-  url?: string;
-  location?: string;
-  color?: string;
-  salary?: number;
-  resume?: string;
-  cover?: string;
-}
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { CreateJobDto } from '../types/jobs';
+import { randomUUID } from 'crypto';
+const getJobs = async () => {
+  return await axios.get('/jobs/');
+};
 
 const DisplayJobs = () => {
-  const jobs: Job[] = [
+  const jobQuery = useQuery({
+    queryKey: ['jobs'],
+    queryFn: async () => await getJobs(),
+    onSuccess: (data) => console.log(data.data),
+    refetchInterval: 10000,
+  });
+
+  const jobs: CreateJobDto[] = [
     {
       title: 'Sales Associate',
       company: 'Southridge Bldg',
@@ -29,11 +32,19 @@ const DisplayJobs = () => {
     },
   ];
 
+  if (jobQuery.isLoading) {
+    return <div>Getting Jobs..</div>;
+  }
+
+  if (jobQuery.isError) {
+    return <div>Jobs failed to load</div>;
+  }
+
   return (
     <div id="dashboard__list__jobs">
-      {jobs.map((item) => {
+      {jobQuery.data.data?.map((item: CreateJobDto) => {
         return (
-          <div className="job_item">
+          <div className="job_item" key={crypto.randomUUID()}>
             <div className="job__item__title">{item.title}</div>
             <div className="job__item__subtitle">{item.company}</div>
           </div>

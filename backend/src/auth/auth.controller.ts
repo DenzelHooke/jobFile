@@ -71,8 +71,6 @@ export class AuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<any> {
-    console.log('REQUEST: ', request);
-
     return await this.authService.authorize(request, response);
 
     // response.status(200).json(res);

@@ -95,7 +95,7 @@ export class AuthService {
   // Public endpoint
   async authorize(request: Request, response: Response): Promise<Boolean> {
     try {
-      console.log('COOKIES: ', request.cookies);
+      // console.log('COOKIES: ', request.cookies);
       const token = request.cookies['token'];
 
       const isValid = await this.jwtService.verifyAsync(token);

@@ -22,9 +22,10 @@ declare module 'express' {
 export class JobsService {
   constructor(@InjectModel(modelName) private jobModel: Model<JobModel>) {}
 
-  async getAll(): Promise<Job[]> {
+  async getAll(request: Request): Promise<Job[]> {
     try {
-      return await this.jobModel.find();
+      const user = request.user;
+      return await this.jobModel.find({ user: user });
     } catch (error) {
       throw new NotFoundException();
     }
@@ -41,7 +42,8 @@ export class JobsService {
 
       return await newJob.save();
     } catch (error) {
-      throw new InternalServerErrorException();
+      console.error(error);
+      throw new UnkownError('An error has occured');
     }
   }
 

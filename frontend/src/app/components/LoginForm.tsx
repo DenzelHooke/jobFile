@@ -66,7 +66,7 @@ const LoginForm = () => {
   }, [loginMutation.isError, loginMutation.isSuccess, setError, setSuccess]);
 
   return (
-    <div id="login-form" className="auth-form">
+    <div id="login-form" className="form">
       <div className="heading">
         <h2 className="heading-text">Login</h2>
         <small className="accent-text small-text">Welcome back!</small>

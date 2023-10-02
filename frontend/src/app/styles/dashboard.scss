@@ -75,5 +75,39 @@
   }
 }
 
-.modal {
+.ReactModal__Content {
+  input {
+    width: 200px;
+    border: 0.6px solid #e2e2e2;
+    background: #f6f6f6;
+  }
+}
+
+.create-job-form {
+  transition: all ease-in-out 300ms;
+  flex: 100;
+  width: 600px;
+
+  input {
+    width: 100%;
+  }
+}
+
+.dashboard__sidebar {
+  background-color: $color-brand;
+  div {
+    color: white !important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .create-job-form {
+    width: 450px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .create-job-form {
+    width: 250px;
+  }
 }
