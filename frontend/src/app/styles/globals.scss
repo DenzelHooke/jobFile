@@ -49,7 +49,7 @@ body {
 
 .accent-text {
   // color: $color-brand;
-  color: $color-faded-text;
+  // color: $color-faded-text;
   font-weight: 500;
 }
 
@@ -141,11 +141,13 @@ body {
 }
 
 .form {
+  transition: all ease-in-out 300ms;
   flex: 100;
   align-items: center;
 
   margin-bottom: 20px;
   // padding: 20px;
+
   .heading {
     margin-bottom: 50px;
     text-align: center;
@@ -201,4 +203,17 @@ body {
 
 #login-form {
   max-width: 60%;
+}
+
+.inner-form-container {
+  padding: 20px;
+}
+
+.ReactModal__Content {
+  padding: 0;
+  input {
+    width: 200px;
+    border: 0.6px solid #e2e2e2;
+    background: #f6f6f6;
+  }
 }

@@ -42,12 +42,11 @@ body {
 }
 
 .accent-text {
-  color: rgb(171, 171, 171);
   font-weight: 500;
 }
 
 .heading-text {
-  font-size: 30px;
+  font-size: 35px;
 }
 
 .center-text {
@@ -121,6 +120,7 @@ body {
 }
 
 .form {
+  transition: all ease-in-out 300ms;
   flex: 100;
   align-items: center;
   margin-bottom: 20px;
@@ -168,4 +168,17 @@ body {
 
 #login-form {
   max-width: 60%;
+}
+
+.inner-form-container {
+  padding: 20px;
+}
+
+.ReactModal__Content {
+  padding: 0;
+}
+.ReactModal__Content input {
+  width: 200px;
+  border: 0.6px solid #e2e2e2;
+  background: #f6f6f6;
 }/*# sourceMappingURL=globals.css.map */

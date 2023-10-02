@@ -75,16 +75,48 @@
   }
 }
 
-.ReactModal__Content {
-  input {
-    width: 200px;
-    border: 0.6px solid #e2e2e2;
-    background: #f6f6f6;
-  }
-}
+.dashboard__form {
+  height: 600px;
 
-.create-job-form {
-  transition: all ease-in-out 300ms;
+  .job__heading {
+    padding: 60px 0;
+    // font-size: $size-heading;
+    small {
+      display: none;
+    }
+  }
+  .heading {
+    position: relative;
+    background-color: $color-mute-grey;
+    border-bottom: 1px solid $border-edge;
+
+    .form__options {
+      display: flex;
+      padding-left: 20px;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      gap: 20px;
+      .form__option {
+        cursor: pointer;
+
+        padding: 0 8px;
+        text-align: center;
+        font-weight: bold;
+        opacity: 40%;
+        &.selected {
+          opacity: 100%;
+          border-bottom: 2px solid $color-brand;
+        }
+
+        // &:hover {
+        //   font-size: small;
+        // }
+      }
+    }
+  }
+
   flex: 100;
   width: 600px;
 
@@ -101,13 +133,13 @@
 }
 
 @media screen and (max-width: 800px) {
-  .create-job-form {
+  .dashboard__form {
     width: 450px;
   }
 }
 
 @media screen and (max-width: 450px) {
-  .create-job-form {
+  .dashboard__form {
     width: 250px;
   }
 }

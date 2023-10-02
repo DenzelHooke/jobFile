@@ -81,7 +81,7 @@ const RegisterForm = () => {
   }, [registerMutation.isError, setError, setSuccess]);
 
   return (
-    <div id="register-form" className="auth-form max-80">
+    <div id="register-form" className="form max-80">
       <div className="heading">
         <h2 className="heading-text">Create an Account</h2>
         <small className="accent-text small-text">

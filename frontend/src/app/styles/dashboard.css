@@ -60,18 +60,43 @@
   font-size: 14px;
 }
 
-.ReactModal__Content input {
-  width: 200px;
-  border: 0.6px solid #e2e2e2;
-  background: #f6f6f6;
-}
-
-.create-job-form {
-  transition: all ease-in-out 300ms;
+.dashboard__form {
+  height: 600px;
   flex: 100;
   width: 600px;
 }
-.create-job-form input {
+.dashboard__form .job__heading {
+  padding: 60px 0;
+}
+.dashboard__form .job__heading small {
+  display: none;
+}
+.dashboard__form .heading {
+  position: relative;
+  background-color: rgba(171, 141, 255, 0.04);
+  border-bottom: 1px solid #c8c8c8;
+}
+.dashboard__form .heading .form__options {
+  display: flex;
+  padding-left: 20px;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  gap: 20px;
+}
+.dashboard__form .heading .form__options .form__option {
+  cursor: pointer;
+  padding: 0 8px;
+  text-align: center;
+  font-weight: bold;
+  opacity: 40%;
+}
+.dashboard__form .heading .form__options .form__option.selected {
+  opacity: 100%;
+  border-bottom: 2px solid #2b5ee3;
+}
+.dashboard__form input {
   width: 100%;
 }
 
@@ -83,12 +108,12 @@
 }
 
 @media screen and (max-width: 800px) {
-  .create-job-form {
+  .dashboard__form {
     width: 450px;
   }
 }
 @media screen and (max-width: 450px) {
-  .create-job-form {
+  .dashboard__form {
     width: 250px;
   }
 }/*# sourceMappingURL=dashboard.css.map */

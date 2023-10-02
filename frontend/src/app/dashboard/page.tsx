@@ -6,27 +6,8 @@ import SearchJobs from '../components/SearchJobs';
 import DisplayJobs from '../components/DisplayJobs';
 import DashboardModal from '../components/Modal';
 
-import CreateJobButton from '../components/CreateJob';
+import CreateJobButton from '../components/CreateJobButton';
 import CreateJobForm from '../components/CreateJobForm';
-// const verifyUser = async () => {
-//   try {
-//     const isAuth = await axios.get(
-//       `${process.env.DEV_SERVER}/auth/authenticate`,
-//       {
-//         withCredentials: true,
-//       }
-//     );
-//     console.log(isAuth.data);
-//     //   return isAuth;
-//     if (isAuth.status === 200) return true;
-//     else {
-//       return false;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// };
 
 const Page = async () => {
   //   const valid = await verifyUser();

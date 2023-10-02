@@ -5,6 +5,9 @@ import axios from 'axios';
 import { setError, setSuccess } from '@/features/global/globalSlice';
 import { useDispatch } from 'react-redux';
 import { CreateJobDto } from '../types/jobs';
+import CreateJobMainForm from './CreateJobMainForm';
+import AddDocuments from './AddDocuments';
+
 const CreateJobForm = () => {
   const dispatch = useDispatch();
   const [jobData, setJobData] = useState({
@@ -18,12 +21,25 @@ const CreateJobForm = () => {
     resume: '',
     cover: '',
   });
-
   const jobMutation = useMutation({
     mutationFn: async (data: CreateJobDto) => {
       return await axios.post('/jobs/', data);
     },
   });
+
+  //Record tells the compiler thgat each key is a string and has a value of a JSX Element
+  const options: Record<string, JSX.Element> = {
+    info: (
+      <CreateJobMainForm
+        jobData={jobData}
+        jobMutation={jobMutation}
+        setJobData={setJobData}
+      />
+    ),
+    documents: <AddDocuments jobData={jobData} setJobData={setJobData} />,
+  };
+
+  const [currentOption, setCurrentOption] = useState('info');
 
   useEffect(() => {
     if (jobMutation.isError) {
@@ -42,95 +58,28 @@ const CreateJobForm = () => {
   };
 
   return (
-    <div className="create-job-form form">
-      <div className="heading">
-        <h2 className="heading-text">Create new job</h2>
+    <div className="form dashboard__form">
+      <div className="job__heading heading">
+        <h2 className="heading-text">Create New</h2>
         <small className="accent-text small-text">Add a job!</small>
-      </div>
-      <div className="inner-auth-container">
-        <form onSubmit={(e) => onSubmit(e)}>
-          <div className="form-inputs">
-            <div className="form-wrapper">
-              <label htmlFor="title">Position</label>
-              <input
-                id="title"
-                className="input"
-                type="text"
-                value={jobData.title}
-                onChange={(e) =>
-                  setJobData((prevState) => {
-                    console.log(e.target.value);
-                    return { ...prevState, [e.target.id]: e.target.value };
-                  })
-                }
-                placeholder="Enter title"
-              />
-            </div>
-            <div className="form-wrapper">
-              <label htmlFor="company">Company</label>
-              <input
-                id="company"
-                className="input"
-                type="text"
-                placeholder="Eg. Apple"
-                value={jobData.company}
-                onChange={(e) =>
-                  setJobData((prevState) => {
-                    console.log(e.target.value);
-                    return { ...prevState, [e.target.id]: e.target.value };
-                  })
-                }
-              />
-            </div>
-            <div className="form-wrapper">
-              <label htmlFor="url">Page URL</label>
-              <input
-                id="url"
-                className="input"
-                type="text"
-                placeholder="indeed.com/job/123"
-                value={jobData.url}
-                onChange={(e) =>
-                  setJobData((prevState) => {
-                    console.log(e.target.value);
-                    return { ...prevState, [e.target.id]: e.target.value };
-                  })
-                }
-              />
-            </div>
-            <div className="form-wrapper">
-              <label htmlFor="salary">Salary</label>
-              <input
-                id="salary"
-                className="input"
-                type="number"
-                placeholder="$37,000"
-                value={jobData.salary}
-                onChange={(e) =>
-                  setJobData((prevState) => {
-                    console.log(e.target.value);
-                    return { ...prevState, [e.target.id]: e.target.value };
-                  })
-                }
-              />
-            </div>
-            <div className="form-wrapper">
-              <label htmlFor="location">Location</label>
-              <input
-                id="location"
-                className="input"
-                type="text"
-                placeholder="1455 Quebec St, Vancouver"
-                value={jobData.location}
-                onChange={(e) =>
-                  setJobData((prevState) => {
-                    console.log(e.target.value);
-                    return { ...prevState, [e.target.id]: e.target.value };
-                  })
-                }
-              />
-            </div>
+        <div className="form__options">
+          <div
+            className={`form__option ${currentOption === 'info' && 'selected'}`}
+            onClick={() => setCurrentOption('info')}>
+            Job Info
           </div>
+          <div
+            className={`form__option ${
+              currentOption === 'documents' && 'selected'
+            }`}
+            onClick={() => setCurrentOption('documents')}>
+            Documents
+          </div>
+        </div>
+      </div>
+      <div className="inner-form-container">
+        <form onSubmit={(e) => onSubmit(e)}>
+          {options[`${currentOption}`]}
           <div className="button-wrapper">
             {jobMutation.isLoading ? (
               <button type="submit" disabled className="button no-hover">

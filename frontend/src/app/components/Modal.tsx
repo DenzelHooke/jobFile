@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store';
 const customStyles = {
   content: {
+    padding: 0,
     top: '50%',
     left: '50%',
     right: 'auto',
