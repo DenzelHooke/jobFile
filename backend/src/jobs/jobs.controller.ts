@@ -8,12 +8,19 @@ import {
   Param,
   Req,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import Job from './interfaces/jobs.interfaces';
 import { CreateJobDto } from './dto/Job.dto';
 import { Request } from 'express';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { CustomFileSizeValidation } from 'src/upload/handling/handlers';
 
 @Controller('jobs')
 export class JobsController {
@@ -39,11 +46,19 @@ export class JobsController {
   // Private endpoint
   @UseGuards(AuthGuard)
   @Post()
+  @UseInterceptors(
+    FileInterceptor('resume', {
+      limits: {
+        fileSize: 50000,
+      },
+    }),
+  )
   async createOne(
     @Req() req: Request,
     @Body() createJobDto: CreateJobDto,
+    @UploadedFile() file: Express.Multer.File,
   ): Promise<Job> {
-    return this.jobService.createOne(createJobDto, req);
+    return this.jobService.createOne(createJobDto, req, file);
   }
 
   @UseGuards(AuthGuard)

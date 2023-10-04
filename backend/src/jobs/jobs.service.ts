@@ -11,6 +11,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common/exceptions';
 import { UnkownError } from 'src/exceptions/validation.exception';
+import { UploadService } from 'src/upload/upload.service';
 
 declare module 'express' {
   interface Request {
@@ -20,7 +21,10 @@ declare module 'express' {
 
 @Injectable()
 export class JobsService {
-  constructor(@InjectModel(modelName) private jobModel: Model<JobModel>) {}
+  constructor(
+    @InjectModel(modelName) private jobModel: Model<JobModel>,
+    private uploadService: UploadService,
+  ) {}
 
   async getAll(request: Request): Promise<Job[]> {
     try {
@@ -31,9 +35,14 @@ export class JobsService {
     }
   }
 
-  async createOne(createJobDto: CreateJobDto, req: Request): Promise<Job> {
+  async createOne(
+    createJobDto: CreateJobDto,
+    req: Request,
+    file: Express.Multer.File,
+  ): Promise<Job> {
     try {
       const userID = req.user;
+      await this.uploadService.uploadFile(file, userID);
 
       const newJob = new this.jobModel({
         ...createJobDto,

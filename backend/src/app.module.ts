@@ -9,6 +9,8 @@ import { UsersModule } from './users/users.module';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { UploadService } from './upload/upload.service';
+import { UploadModule } from './upload/upload.module';
 import keys from './config/keys';
 
 @Module({
@@ -20,8 +22,9 @@ import keys from './config/keys';
     MongooseModule.forRoot(process.env.MONGO_URI ? process.env.MONGO_URI : ''),
     UsersModule,
     AuthModule,
+    UploadModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UploadService],
 })
 export class AppModule {}

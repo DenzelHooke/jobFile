@@ -4,6 +4,8 @@ import { JobsService } from './jobs.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JobSchema, modelName } from 'src/schemas/Job.schema';
 import { AuthModule } from 'src/auth/auth.module';
+import { UploadModule } from 'src/upload/upload.module';
+import { UploadService } from 'src/upload/upload.service';
 
 @Module({
   imports: [
@@ -14,8 +16,9 @@ import { AuthModule } from 'src/auth/auth.module';
       },
     ]),
     AuthModule,
+    UploadModule,
   ],
   controllers: [JobsController],
-  providers: [JobsService],
+  providers: [JobsService, UploadService],
 })
 export class JobsModule {}
