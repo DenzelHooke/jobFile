@@ -42,7 +42,11 @@ export class JobsService {
   ): Promise<Job> {
     try {
       const userID = req.user;
-      await this.uploadService.uploadFile(file, userID);
+      await this.uploadService.uploadFile(
+        file.buffer,
+        file.originalname,
+        userID,
+      );
 
       const newJob = new this.jobModel({
         ...createJobDto,

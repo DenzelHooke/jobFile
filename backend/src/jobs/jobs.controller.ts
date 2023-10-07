@@ -46,17 +46,19 @@ export class JobsController {
   // Private endpoint
   @UseGuards(AuthGuard)
   @Post()
-  @UseInterceptors(
-    FileInterceptor('resume', {
-      limits: {
-        fileSize: 50000,
-      },
-    }),
-  )
+  @UseInterceptors(FileInterceptor('resume'))
   async createOne(
     @Req() req: Request,
     @Body() createJobDto: CreateJobDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 2000000 }),
+          new FileTypeValidator({ fileType: 'pdf' }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ): Promise<Job> {
     return this.jobService.createOne(createJobDto, req, file);
   }
