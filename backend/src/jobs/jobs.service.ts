@@ -39,18 +39,20 @@ export class JobsService {
     createJobDto: CreateJobDto,
     req: Request,
     file: Express.Multer.File,
-  ): Promise<Job> {
+  ): Promise<any> {
     try {
       const userID = req.user;
-      await this.uploadService.uploadFile(
-        file.buffer,
-        file.originalname,
-        userID,
-      );
+      let uploaded;
+
+      if (file) {
+        uploaded = await this.uploadService.uploadFile(file, userID);
+      }
 
       const newJob = new this.jobModel({
         ...createJobDto,
         user: userID,
+        resume: uploaded && uploaded.name,
+        resumeUrl: uploaded && uploaded.url,
       });
 
       return await newJob.save();

@@ -53,8 +53,8 @@ export class JobsController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 2000000 }),
-          new FileTypeValidator({ fileType: 'pdf' }),
+          new MaxFileSizeValidator({ maxSize: 50000000 }),
+          // new FileTypeValidator({ fileType: 'pdf' }),
         ],
       }),
     )

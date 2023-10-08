@@ -11,5 +11,7 @@ export default interface Job {
   salary?: number;
   resume?: string;
   cover?: string;
+  resumeUrl?: string;
+  coverUrl?: string;
   user: string;
 }

@@ -34,6 +34,12 @@ export class JobModel {
   cover: string;
 
   @Prop()
+  resumeUrl: string;
+
+  @Prop()
+  coverUrl: string;
+
+  @Prop()
   color: string;
 
   @Prop({ required: true })
