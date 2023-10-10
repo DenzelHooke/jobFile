@@ -4,7 +4,12 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { CreateJobDto } from '../types/jobs';
-import { setError, setSuccess } from '@/features/global/globalSlice';
+import {
+  setError,
+  setModal,
+  setModalType,
+  setSuccess,
+} from '@/features/global/globalSlice';
 import { useDispatch } from 'react-redux';
 
 const getJobs = async () => {
@@ -26,8 +31,8 @@ const DisplayJobs = () => {
       dispatch(setError('Job has no id key'));
       return;
     }
-
-    console.log(id);
+    dispatch(setModal(true));
+    dispatch(setModalType('editjob'));
   };
 
   if (jobQuery.isLoading) {

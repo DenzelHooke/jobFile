@@ -2,10 +2,12 @@
 import React from 'react';
 // @ts-ignore
 import Modal from 'react-modal';
-import { setModal } from '@/features/global/globalSlice';
+import { setModal, setModalType } from '@/features/global/globalSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store';
 import CreateJobForm from './CreateJobForm';
+import DisplayJob from './EditJob';
+import EditJob from './EditJob';
 const customStyles = {
   content: {
     padding: 0,
@@ -28,6 +30,7 @@ const DashboardModal = () => {
 
   const onModalClose = () => {
     dispatch(setModal(false));
+    dispatch(setModalType(''));
   };
   return (
     <Modal
@@ -43,11 +46,13 @@ const DashboardModal = () => {
 //Tells typescript that our key will be a string, otherwise it wont work.
 interface ModalChildren {
   addjob: React.JSX.Element;
+  editjob: React.JSX.Element;
   [key: string]: any;
 }
 
 const modalChildren: ModalChildren = {
   addjob: <CreateJobForm />,
+  editjob: <EditJob />,
 };
 
 export default DashboardModal;
