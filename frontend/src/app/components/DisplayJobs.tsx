@@ -4,12 +4,16 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { CreateJobDto } from '../types/jobs';
-import { randomUUID } from 'crypto';
+import { setError, setSuccess } from '@/features/global/globalSlice';
+import { useDispatch } from 'react-redux';
+
 const getJobs = async () => {
   return await axios.get('/jobs/');
 };
 
 const DisplayJobs = () => {
+  const dispatch = useDispatch();
+
   const jobQuery = useQuery({
     queryKey: ['jobs'],
     queryFn: async () => await getJobs(),
@@ -17,20 +21,14 @@ const DisplayJobs = () => {
     refetchInterval: 10000,
   });
 
-  const jobs: CreateJobDto[] = [
-    {
-      title: 'Sales Associate',
-      company: 'Southridge Bldg',
-    },
-    {
-      title: 'Software Engineer',
-      company: 'Apple',
-    },
-    {
-      title: 'Mechanic',
-      company: 'Oaklahoma Autos',
-    },
-  ];
+  const onItemClick = (id: string | undefined) => {
+    if (undefined) {
+      dispatch(setError('Job has no id key'));
+      return;
+    }
+
+    console.log(id);
+  };
 
   if (jobQuery.isLoading) {
     return <div>Getting Jobs..</div>;
@@ -44,7 +42,10 @@ const DisplayJobs = () => {
     <div id="dashboard__list__jobs">
       {jobQuery.data.data?.map((item: CreateJobDto) => {
         return (
-          <div className="job_item" key={crypto.randomUUID()}>
+          <div
+            className="job_item"
+            key={crypto.randomUUID()}
+            onClick={(e) => onItemClick(item._id)}>
             <div className="job__item__title">{item.title}</div>
             <div className="job__item__subtitle">{item.company}</div>
           </div>

@@ -8,4 +8,5 @@ export interface CreateJobDto {
   salary?: number;
   resume?: any;
   cover?: any;
+  _id?: string;
 }

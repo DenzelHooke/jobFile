@@ -17,7 +17,7 @@ const Page = async () => {
   return (
     <>
       <Redirect />
-      <DashboardModal children={<CreateJobForm />} />
+      <DashboardModal />
       <section id="dashboard">
         <div className="dashboard__sidebar">
           <FilterJobs />

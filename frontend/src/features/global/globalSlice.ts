@@ -6,6 +6,7 @@ export interface GlobalState {
   isSuccess: Boolean;
   message: string;
   isModal: Boolean;
+  modalType: string;
 }
 
 const initialState: GlobalState = {
@@ -13,6 +14,7 @@ const initialState: GlobalState = {
   isSuccess: false,
   message: '',
   isModal: false,
+  modalType: '',
 };
 
 export const globalSlice = createSlice({
@@ -35,8 +37,12 @@ export const globalSlice = createSlice({
     setModal: (state, action) => {
       state.isModal = action.payload;
     },
+    setModalType: (state, action) => {
+      state.modalType = action.payload;
+    },
   },
 });
 
-export const { setModal, setError, setSuccess, setReset } = globalSlice.actions;
+export const { setModal, setModalType, setError, setSuccess, setReset } =
+  globalSlice.actions;
 export default globalSlice.reducer;

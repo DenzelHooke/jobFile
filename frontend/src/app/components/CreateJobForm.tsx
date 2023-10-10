@@ -26,13 +26,13 @@ const createFormData = (jobData: any) => {
 const CreateJobForm = () => {
   const dispatch = useDispatch();
   const [jobData, setJobData] = useState({
-    title: '',
-    company: '',
-    notes: '',
-    url: '',
-    location: '',
-    color: '',
-    salary: 0,
+    title: 'test',
+    company: 'test',
+    notes: 'test',
+    url: 'test',
+    location: 'test',
+    color: 'red',
+    salary: 25000,
     resume: null,
     cover: null,
   });
