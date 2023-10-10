@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import globalSlice from '@/features/global/globalSlice';
+import jobSlice from '@/features/jobs/jobSlice';
 
 export const store = configureStore({
   reducer: {
     global: globalSlice,
+    jobs: jobSlice,
   },
 });
 
