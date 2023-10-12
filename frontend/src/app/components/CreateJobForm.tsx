@@ -16,7 +16,7 @@ import AddDocuments from './AddDocuments';
 const createFormData = (jobData: any) => {
   const formData = new FormData();
   for (const key in jobData) {
-    console.log(key);
+    // console.log(key);
     formData.append(key, jobData[key]);
   }
 
@@ -32,7 +32,7 @@ const CreateJobForm = () => {
     url: '',
     location: '',
     color: '',
-    salary: 25000,
+    salary: 0,
     resume: null,
     cover: null,
   });

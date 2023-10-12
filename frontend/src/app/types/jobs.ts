@@ -7,6 +7,8 @@ export interface CreateJobDto {
   color?: string;
   salary?: number;
   resume?: any;
+  resumeName?: string;
+  resumeUrl?: string;
   cover?: any;
   _id?: string;
 }

@@ -11,6 +11,7 @@ import {
   setSuccess,
 } from '@/features/global/globalSlice';
 import { useDispatch } from 'react-redux';
+import { setSelectedJob } from '@/features/jobs/jobSlice';
 
 const getJobs = async () => {
   return await axios.get('/jobs/');
@@ -22,17 +23,18 @@ const DisplayJobs = () => {
   const jobQuery = useQuery({
     queryKey: ['jobs'],
     queryFn: async () => await getJobs(),
-    onSuccess: (data) => console.log(data.data),
+    // onSuccess: (data) => console.log(data.data),
     refetchInterval: 10000,
   });
 
   const onItemClick = (id: string | undefined) => {
-    if (undefined) {
+    if (!id) {
       dispatch(setError('Job has no id key'));
       return;
     }
     dispatch(setModal(true));
     dispatch(setModalType('editjob'));
+    dispatch(setSelectedJob(id));
   };
 
   if (jobQuery.isLoading) {

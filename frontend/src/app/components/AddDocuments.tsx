@@ -6,15 +6,23 @@ interface Props {
   jobData: CreateJobDto;
   setJobData: any;
   current: string;
+  fileUrlState?: any;
 }
 
-const AddDocuments = ({ setJobData, current }: Props) => {
+const AddDocuments = ({ setJobData, current, fileUrlState }: Props) => {
   return (
     <>
       <div
         className={`form-inputs ${
           current.toLowerCase() !== 'documents' && 'hide'
         }`}>
+        {fileUrlState && (
+          <iframe
+            src={`${fileUrlState.resumeUrl}`}
+            width="400px"
+            height="380px"></iframe>
+        )}
+
         <div className="form-wrapper">
           <label htmlFor="resume">Resume</label>
           <input

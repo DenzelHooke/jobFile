@@ -82,18 +82,41 @@ export class JobsService {
     }
   }
 
-  async updateOne(createJobDto: CreateJobDto, req: Request, id: string) {
+  async updateOne(
+    createJobDto: CreateJobDto,
+    req: Request,
+    id: string,
+    file: Express.Multer.File,
+  ) {
     try {
+      const userID = req.user;
       const foundJob = await this.jobModel.findById({ _id: id });
+      let uploaded;
 
       if (!(foundJob && foundJob.user === req.user)) {
         throw new UnauthorizedException();
       }
 
+      if (!createJobDto) {
+        throw new UnkownError('No body data included');
+      }
+
+      if (file) {
+        uploaded = await this.uploadService.uploadFile(file, userID);
+      }
+
       // Updates job but does not create  new one if job cannot be found
-      const job = await this.jobModel.findByIdAndUpdate(id, createJobDto, {
-        new: false,
-      });
+      const job = await this.jobModel.findByIdAndUpdate(
+        id,
+        {
+          ...createJobDto,
+          resume: uploaded && uploaded.name,
+          resumeUrl: uploaded && uploaded.url,
+        },
+        {
+          new: false,
+        },
+      );
 
       return job;
     } catch (error) {

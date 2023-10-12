@@ -26,12 +26,25 @@ const DashboardModal = () => {
   const { isModal, modalType } = useSelector(
     (state: RootState) => state.global
   );
+  const { selectedJob } = useSelector((state: RootState) => state.jobs);
   const dispatch = useDispatch();
-
   const onModalClose = () => {
     dispatch(setModal(false));
     dispatch(setModalType(''));
   };
+
+  //Tells typescript that our key will be a string, otherwise it wont work.
+  interface ModalChildren {
+    addjob: React.JSX.Element;
+    editjob: React.JSX.Element;
+    [key: string]: any;
+  }
+
+  const modalChildren: ModalChildren = {
+    addjob: <CreateJobForm />,
+    editjob: <EditJob id={selectedJob} />,
+  };
+
   return (
     <Modal
       isOpen={isModal && modalType ? true : false}
@@ -41,18 +54,6 @@ const DashboardModal = () => {
       {modalChildren[modalType]}
     </Modal>
   );
-};
-
-//Tells typescript that our key will be a string, otherwise it wont work.
-interface ModalChildren {
-  addjob: React.JSX.Element;
-  editjob: React.JSX.Element;
-  [key: string]: any;
-}
-
-const modalChildren: ModalChildren = {
-  addjob: <CreateJobForm />,
-  editjob: <EditJob />,
 };
 
 export default DashboardModal;

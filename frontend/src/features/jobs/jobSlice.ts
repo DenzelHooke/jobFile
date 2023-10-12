@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface jobState {
   jobs: [];
-  selectedJob: CreateJobDto | null;
+  selectedJob: string | null;
 }
 
 const initialState: jobState = {

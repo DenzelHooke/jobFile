@@ -22,6 +22,8 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CustomFileSizeValidation } from 'src/upload/handling/handlers';
 
+const maxFileUploadSize: number = 50000000;
+
 @Controller('jobs')
 export class JobsController {
   constructor(private readonly jobService: JobsService) {}
@@ -53,7 +55,7 @@ export class JobsController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 50000000 }),
+          new MaxFileSizeValidator({ maxSize: maxFileUploadSize }),
           // new FileTypeValidator({ fileType: 'pdf' }),
         ],
       }),
@@ -64,18 +66,30 @@ export class JobsController {
   }
 
   @UseGuards(AuthGuard)
-  @Delete(':id')
-  async deleteOne(@Param('id') id: string): Promise<Job | null> {
-    return this.jobService.deleteOne(id);
-  }
-
-  @UseGuards(AuthGuard)
   @Put(':id')
+  // UseInterceptors dectorator required to access formData(Files or not)
+  @UseInterceptors(FileInterceptor('resume'))
   async updateOne(
     @Req() req: Request,
     @Body() createJobDto: CreateJobDto,
     @Param('id') id: string,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({
+            maxSize: maxFileUploadSize,
+          }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ) {
-    return this.jobService.updateOne(createJobDto, req, id);
+    return this.jobService.updateOne(createJobDto, req, id, file);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete(':id')
+  async deleteOne(@Param('id') id: string): Promise<Job | null> {
+    return this.jobService.deleteOne(id);
   }
 }
