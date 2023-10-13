@@ -11,6 +11,6 @@ const CreateJobButton = () => {
     dispatch(setModal(true));
     dispatch(setModalType('addjob'));
   };
-  return <button onClick={onClick}>NEW</button>;
+  return <div className="button-wrapper"><button onClick={onClick}>NEW</button></div>;
 };
 export default CreateJobButton;

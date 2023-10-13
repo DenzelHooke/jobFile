@@ -147,22 +147,24 @@ body {
 .form .info-form span a {
   color: #2b5ee3;
 }
-.form .button-wrapper {
+
+.button-wrapper {
   color: white;
 }
-.form .button-wrapper button {
+.button-wrapper button {
+  border: none;
   height: 40px;
   color: inherit;
   background-color: #2b5ee3;
   border-radius: 6px;
 }
-.form .button-wrapper button.no-hover {
+.button-wrapper button.no-hover {
   cursor: default;
 }
-.form .button-wrapper button.no-hover:hover {
+.button-wrapper button.no-hover:hover {
   background-color: #2b5ee3;
 }
-.form .button-wrapper button:hover {
+.button-wrapper button:hover {
   background-color: #2851bb;
 }
 

@@ -16,8 +16,18 @@
 }
 
 .dashboard__data__header {
+  padding-bottom: 40px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 10px;
+}
+.dashboard__data__header .button-wrapper {
+  margin: 0;
+}
+.dashboard__data__header .button-wrapper button {
+  padding: 0 40px;
+  height: 39.5px;
 }
 
 .dashboard__content__header {
@@ -42,14 +52,14 @@
 #dashboard__list__jobs {
   padding-top: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  gap: 40px;
 }
 #dashboard__list__jobs .job_item {
-  max-width: 200px;
-  padding: 2px 20px;
+  padding: 5px 10px;
   background-color: white;
   border-radius: 10px;
+  position: relative;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   transition: all ease-in-out 50ms;
 }
@@ -57,8 +67,17 @@
   cursor: pointer;
   background-color: rgb(244, 244, 244);
 }
+#dashboard__list__jobs .job_item .job__item__icon {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
 #dashboard__list__jobs .job_item .job__item__title {
+  overflow: hidden;
   font-weight: 600;
+  white-space: nowrap;
+  height: 20px;
+  text-overflow: ellipsis;
 }
 #dashboard__list__jobs .job_item .job__item__subtitle {
   font-size: 14px;
@@ -112,6 +131,28 @@
 }
 .dashboard__sidebar div {
   color: white !important;
+}
+
+.dashboard__search__container {
+  padding: 0 10px;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+.dashboard__search__container input {
+  padding: 10px 0;
+  color: grey;
+  border: none;
+  flex: 100;
+  background-color: inherit;
+  outline: 0;
+}
+.dashboard__search__container .input__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.dashboard__search__container .dashboard__seach__container__icon {
+  flex-shrink: 100;
 }
 
 @media screen and (max-width: 800px) {

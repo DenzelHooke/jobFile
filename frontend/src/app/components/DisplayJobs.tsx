@@ -12,6 +12,7 @@ import {
 } from '@/features/global/globalSlice';
 import { useDispatch } from 'react-redux';
 import { setSelectedJob } from '@/features/jobs/jobSlice';
+import Job from './Job';
 
 const getJobs = async () => {
   return await axios.get('/jobs/');
@@ -49,13 +50,7 @@ const DisplayJobs = () => {
     <div id="dashboard__list__jobs">
       {jobQuery.data.data?.map((item: CreateJobDto) => {
         return (
-          <div
-            className="job_item"
-            key={crypto.randomUUID()}
-            onClick={(e) => onItemClick(item._id)}>
-            <div className="job__item__title">{item.title}</div>
-            <div className="job__item__subtitle">{item.company}</div>
-          </div>
+          <Job onItemClick={onItemClick} item={item} />
         );
       })}
     </div>

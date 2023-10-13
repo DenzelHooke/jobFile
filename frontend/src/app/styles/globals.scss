@@ -178,25 +178,28 @@ body {
     }
   }
 
-  .button-wrapper {
-    color: white;
-    button {
-      &.no-hover {
-        cursor: default;
 
-        &:hover {
-          background-color: $color-brand;
-        }
-      }
-      height: $inputHeight;
-      color: inherit;
-      background-color: $color-brand;
-      border-radius: $border-radius;
+}
+
+.button-wrapper {
+  color: white;
+  button {
+    border: none;
+    &.no-hover {
+      cursor: default;
 
       &:hover {
-        // background-color: darken($color-brand, $btn-hover-darken-percentage);
-        background-color: mix($color-brand, $color-black, 80%);
+        background-color: $color-brand;
       }
+    }
+    height: $inputHeight;
+    color: inherit;
+    background-color: $color-brand;
+    border-radius: $border-radius;
+
+    &:hover {
+      // background-color: darken($color-brand, $btn-hover-darken-percentage);
+      background-color: mix($color-brand, $color-black, 80%);
     }
   }
 }
