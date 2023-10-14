@@ -5,7 +5,11 @@ import { BsBuildingsFill } from 'react-icons/bs';
 import { TiSortAlphabetically } from 'react-icons/ti';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentFilter } from '@/features/jobs/jobSlice';
+import {
+  setCurrentFilter,
+  sortCompanyFilter,
+  sortPosFilter,
+} from '@/features/jobs/jobSlice';
 
 const FilterJobs = () => {
   const { currentFilter } = useSelector((state: RootState) => state.jobs);
@@ -17,10 +21,12 @@ const FilterJobs = () => {
     {
       data: 'Company',
       icon: <BsBuildingsFill size={20} />,
+      onClick: sortCompanyFilter,
     },
     {
       data: 'Alphabet',
       icon: <TiSortAlphabetically size={20} />,
+      onClick: sortPosFilter,
     },
     // {
     //   data: 'Position',
@@ -28,9 +34,10 @@ const FilterJobs = () => {
     // },
   ];
 
-  const onClick = (option: string) => {
+  const onClick = (option: string, item: any) => {
     if (option) {
       dispatch(setCurrentFilter(option.toLowerCase()));
+      dispatch(item.onClick());
     }
   };
 
@@ -45,7 +52,7 @@ const FilterJobs = () => {
                 ? 'active'
                 : 'inactive'
             }`}
-            onClick={(e) => onClick(item.data.toLowerCase())}>
+            onClick={(e) => onClick(item.data.toLowerCase(), item)}>
             {item.icon}
             {item.data}
           </div>

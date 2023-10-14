@@ -29,9 +29,45 @@ export const jobSlice = createSlice({
     setCurrentFilter: (state, action) => {
       state.currentFilter = action.payload;
     },
+    sortCompanyFilter: (state) => {
+      state.jobs.sort((a: CreateJobDto, b: CreateJobDto) => {
+        const aName = a.company.toLowerCase();
+        const bName = b.company.toLowerCase();
+
+        if (aName > bName) {
+          return 1;
+        }
+        if (aName < bName) {
+          return -1;
+        }
+
+        return 0;
+      });
+    },
+    sortPosFilter: (state) => {
+      state.jobs.sort((a: CreateJobDto, b: CreateJobDto) => {
+        const aName = a.title.toLowerCase();
+        const bName = b.title.toLowerCase();
+
+        if (aName > bName) {
+          return 1;
+        }
+        if (aName < bName) {
+          return -1;
+        }
+
+        return 0;
+      });
+    },
   },
 });
 
-export const { setJobs, setSelectedJob, resetSelectedJob, setCurrentFilter } =
-  jobSlice.actions;
+export const {
+  setJobs,
+  setSelectedJob,
+  resetSelectedJob,
+  setCurrentFilter,
+  sortCompanyFilter,
+  sortPosFilter,
+} = jobSlice.actions;
 export default jobSlice.reducer;
