@@ -6,6 +6,7 @@
   top: 0;
   width: 100%;
   background-color: white;
+  z-index: 10000;
   border-bottom: 1px solid #eff3f7;
 }
 #navbar .logo {
