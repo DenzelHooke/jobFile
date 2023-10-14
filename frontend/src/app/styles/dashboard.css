@@ -161,6 +161,34 @@
   flex-shrink: 100;
 }
 
+.dashboard__sidebar {
+  padding: 50px 25px;
+}
+
+.dashboard__filter__item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+.dashboard__filter__item svg {
+  fill: white;
+  aspect-ratio: 1/1;
+  scale: 1.2;
+}
+.dashboard__filter__item.active {
+  background-color: rgba(0, 0, 0, 0.16);
+  pointer-events: none;
+}
+.dashboard__filter__item.inactive {
+  background-color: rgba(255, 255, 255, 0.063);
+}
+.dashboard__filter__item.inactive:hover {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 800px) {
   .dashboard__form {
     width: 450px;

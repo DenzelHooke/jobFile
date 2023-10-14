@@ -193,6 +193,39 @@
   }
 }
 
+.dashboard__sidebar {
+  padding: 50px 25px;
+}
+
+.dashboard__filter__item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+
+  svg {
+    fill: white;
+    // width: 40px;
+    aspect-ratio: 1/1;
+    scale: 1.2;
+  }
+
+  &.active {
+    background-color: rgba(0, 0, 0, 0.16);
+    pointer-events: none;
+  }
+
+  &.inactive {
+    background-color: rgba(255, 255, 255, 0.063);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 @media screen and (max-width: 800px) {
   .dashboard__form {
     width: 450px;
