@@ -8,6 +8,7 @@ import DashboardModal from '../components/Modal';
 
 import CreateJobButton from '../components/CreateJobButton';
 import CreateJobForm from '../components/CreateJobForm';
+import JobsWrapper from '../components/JobsWrapper';
 
 const Page = async () => {
   //   const valid = await verifyUser();
@@ -34,7 +35,7 @@ const Page = async () => {
               <SearchJobs />
               <CreateJobButton />
             </div>
-            <DisplayJobs />
+            <JobsWrapper />
           </div>
         </div>
       </section>

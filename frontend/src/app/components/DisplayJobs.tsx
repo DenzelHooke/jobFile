@@ -55,7 +55,7 @@ const DisplayJobs = () => {
   }
 
   return (
-    <div id="dashboard__list__jobs">
+    <div className="dashboard__list__jobs">
       {jobs?.map((item: CreateJobDto) => {
         return <Job onItemClick={onItemClick} item={item} />;
       })}

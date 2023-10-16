@@ -3,12 +3,14 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface jobState {
   jobs: [];
+  search_value: string | false;
   selectedJob: string | null;
   currentFilter: string;
 }
 
 const initialState: jobState = {
   jobs: [],
+  search_value: false,
   selectedJob: null,
   currentFilter: '',
 };
@@ -28,6 +30,14 @@ export const jobSlice = createSlice({
     },
     setCurrentFilter: (state, action) => {
       state.currentFilter = action.payload;
+    },
+    setSearchValue: (state, action) => {
+      if (action.payload.length < 1) {
+        state.search_value = false;
+        return;
+      }
+
+      state.search_value = action.payload;
     },
     sortCompanyFilter: (state) => {
       state.jobs.sort((a: CreateJobDto, b: CreateJobDto) => {
@@ -67,6 +77,7 @@ export const {
   setSelectedJob,
   resetSelectedJob,
   setCurrentFilter,
+  setSearchValue,
   sortCompanyFilter,
   sortPosFilter,
 } = jobSlice.actions;

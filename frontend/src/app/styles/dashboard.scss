@@ -47,7 +47,7 @@
   font-size: 50px;
 }
 
-#dashboard__list__jobs {
+.dashboard__list__jobs {
   padding-top: 40px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
