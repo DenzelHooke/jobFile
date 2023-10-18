@@ -148,6 +148,10 @@ body {
   color: #2b5ee3;
 }
 
+.Toastify__toast-container {
+  z-index: 10000000000000000;
+}
+
 .button-wrapper {
   color: white;
 }

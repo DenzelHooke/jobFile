@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { CreateJobDto } from '../types/jobs';
+
+
 import {
   setError,
   setModal,
@@ -14,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setJobs, setSelectedJob } from '@/features/jobs/jobSlice';
 import Job from './Job';
 import { RootState } from '../store';
+import DisplaySearchedJobs from './DisplaySearchedJobs';
 
 const getJobs = async () => {
   return await axios.get('/jobs/');
@@ -21,13 +24,13 @@ const getJobs = async () => {
 
 const DisplayJobs = () => {
   const dispatch = useDispatch();
-  const { jobs } = useSelector((state: RootState) => state.jobs);
+  const { jobs, search_value } = useSelector((state: RootState) => state.jobs);
 
   const jobQuery = useQuery({
     queryKey: ['jobs'],
     queryFn: async () => await getJobs(),
     // onSuccess: (data) => console.log(data.data),
-    refetchInterval: 10000,
+    // refetchInterval: 10000,
   });
 
   const onItemClick = (id: string | undefined) => {
@@ -56,9 +59,11 @@ const DisplayJobs = () => {
 
   return (
     <div className="dashboard__list__jobs">
-      {jobs?.map((item: CreateJobDto) => {
+      {
+      search_value ? <DisplaySearchedJobs jobs={jobs} search_value={search_value} onClick={onItemClick}/> : jobs?.map((item: CreateJobDto) => {
         return <Job onItemClick={onItemClick} item={item} />;
-      })}
+      })
+      }
     </div>
   );
 };
