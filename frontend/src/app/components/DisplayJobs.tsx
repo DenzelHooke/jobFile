@@ -11,7 +11,7 @@ import {
   setSuccess,
 } from '@/features/global/globalSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { setJobs, setSelectedJob } from '@/features/jobs/jobSlice';
+import { setJobs, setRefetch, setSelectedJob } from '@/features/jobs/jobSlice';
 import Job from './Job';
 import { RootState } from '../store';
 
@@ -21,13 +21,13 @@ const getJobs = async () => {
 
 const DisplayJobs = () => {
   const dispatch = useDispatch();
-  const { jobs } = useSelector((state: RootState) => state.jobs);
+  const { jobs, canRefetch } = useSelector((state: RootState) => state.jobs);
 
-  const jobQuery = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['jobs'],
     queryFn: async () => await getJobs(),
     // onSuccess: (data) => console.log(data.data),
-    refetchInterval: 10000,
+    // refetchInterval: 10000,
   });
 
   const onItemClick = (id: string | undefined) => {
@@ -41,16 +41,24 @@ const DisplayJobs = () => {
   };
 
   useEffect(() => {
-    if (jobQuery.data) {
-      dispatch(setJobs(jobQuery.data.data));
+    if (canRefetch) {
+      // Set canRefetch to false as data is now refetched
+      dispatch(setRefetch(false));
+      // Refetch current job data
+      refetch();
+      console.log('Refetch data');
     }
-  }, [jobQuery.data]);
 
-  if (jobQuery.isLoading) {
+    if (data) {
+      dispatch(setJobs(data.data));
+    }
+  }, [data, canRefetch]);
+
+  if (isLoading) {
     return <div>Getting Jobs..</div>;
   }
 
-  if (jobQuery.isError) {
+  if (isError) {
     return <div>Jobs failed to load</div>;
   }
 

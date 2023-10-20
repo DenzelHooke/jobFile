@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { CreateJobDto } from '../types/jobs';
 import CreateJobMainForm from './CreateJobMainForm';
 import AddDocuments from './AddDocuments';
+import { setRefetch } from '@/features/jobs/jobSlice';
 
 const createFormData = (jobData: any) => {
   const formData = new FormData();
@@ -41,6 +42,14 @@ const CreateJobForm = () => {
     mutationFn: async (data: FormData) => {
       return await axios.post('/jobs/', data);
     },
+
+    onSuccess: (context) => {
+      // Sets refetch to true so we can display newly created job to user
+      dispatch(setRefetch(true));
+      console.log('Setting refetch to ', true);
+      // Set success with success message
+      dispatch(setSuccess('Job Created'));
+    },
   });
 
   const [currentOption, setCurrentOption] = useState('info');
@@ -58,11 +67,8 @@ const CreateJobForm = () => {
 
       // Set error with error message from backend
       dispatch(setError(errorResponse.response?.data?.message));
-    } else if (jobMutation.isSuccess) {
-      // Set success with success message
-      dispatch(setSuccess('Job Created'));
     }
-  }, [jobMutation.isError, jobMutation.isSuccess, setError, setSuccess]);
+  }, [jobMutation.isError, setError, setSuccess]);
 
   return (
     <div className="form dashboard__form">

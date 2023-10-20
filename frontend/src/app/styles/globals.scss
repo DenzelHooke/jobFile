@@ -179,6 +179,10 @@ body {
   }
 }
 
+.Toastify__toast {
+  z-index: 999999;
+}
+
 .button-wrapper {
   color: white;
   button {

@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface jobState {
   jobs: [];
+  canRefetch: true | false;
   search_value: string | false;
   selectedJob: string | null;
   currentFilter: string;
@@ -10,6 +11,7 @@ export interface jobState {
 
 const initialState: jobState = {
   jobs: [],
+  canRefetch: false,
   search_value: false,
   selectedJob: null,
   currentFilter: '',
@@ -69,6 +71,9 @@ export const jobSlice = createSlice({
         return 0;
       });
     },
+    setRefetch: (state, action) => {
+      state.canRefetch = action.payload;
+    },
   },
 });
 
@@ -80,5 +85,6 @@ export const {
   setSearchValue,
   sortCompanyFilter,
   sortPosFilter,
+  setRefetch,
 } = jobSlice.actions;
 export default jobSlice.reducer;

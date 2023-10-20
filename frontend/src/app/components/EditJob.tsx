@@ -14,6 +14,7 @@ import CreateJobMainForm from './CreateJobMainForm';
 import AddDocuments from './AddDocuments';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { setRefetch } from '@/features/jobs/jobSlice';
 
 const createFormData = (jobData: any) => {
   const formData = new FormData();
@@ -69,6 +70,7 @@ const EditJob = ({ id }: Props) => {
   const jobMutation = useMutation({
     mutationFn: async (data: FormData) => {
       if (!selectedJob) {
+        // TODO Change messages to a global state
         throw new Error('No job id');
       }
 
@@ -76,6 +78,11 @@ const EditJob = ({ id }: Props) => {
     },
     onSuccess: () => {
       refetch();
+
+      // Refetches displayJobs
+      dispatch(setRefetch(true));
+      // TODO Change messages to a global state
+      dispatch(setSuccess('Job updated'));
     },
   });
 
@@ -92,9 +99,6 @@ const EditJob = ({ id }: Props) => {
 
       // Set error with error message from backend
       dispatch(setError(errorResponse.response?.data?.message));
-    } else if (jobMutation.isSuccess) {
-      // Set success with success message
-      dispatch(setSuccess('Job Created'));
     }
   }, [jobMutation.isError, jobMutation.isSuccess, setError, setSuccess]);
 
@@ -108,7 +112,6 @@ const EditJob = ({ id }: Props) => {
     //   salary: 1,
     // };
     if (data) {
-      console.log('GETTING FRESH DATA');
       setJobData(data.data);
 
       setFileUrlState({
