@@ -112,17 +112,18 @@ const EditJob = ({ id }: Props) => {
     //   salary: 1,
     // };
     if (data) {
-      setJobData(data.data);
-
-      setFileUrlState({
-        resumeUrl: data.data.resumeUrl ? data.data.resumeUrl : '',
+      setJobData({
+        ...data.data,
+        resume: null,
       });
+
+      if (data.data.resumeUrl) {
+        setFileUrlState({
+          resumeUrl: data.data.resumeUrl ? data.data.resumeUrl : '',
+        });
+      }
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log(jobData);
-  }, [jobData]);
 
   return (
     <div className="form dashboard__form">

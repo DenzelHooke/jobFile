@@ -21,6 +21,7 @@ import { Request } from 'express';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CustomFileSizeValidation } from 'src/upload/handling/handlers';
+import { CustomFileInterceptor } from '../interceptors/CustomFileInterceptor';
 
 const maxFileUploadSize: number = 50000000;
 
@@ -68,7 +69,7 @@ export class JobsController {
   @UseGuards(AuthGuard)
   @Put(':id')
   // UseInterceptors dectorator required to access formData(Files or not)
-  @UseInterceptors(FileInterceptor('resume'))
+  @UseInterceptors(CustomFileInterceptor)
   async updateOne(
     @Req() req: Request,
     @Body() createJobDto: CreateJobDto,
@@ -82,7 +83,7 @@ export class JobsController {
         ],
       }),
     )
-    file: Express.Multer.File,
+    file?: Express.Multer.File,
   ) {
     return this.jobService.updateOne(createJobDto, req, id, file);
   }

@@ -38,7 +38,7 @@ export class JobsService {
   async createOne(
     createJobDto: CreateJobDto,
     req: Request,
-    file: Express.Multer.File,
+    file: Express.Multer.File | undefined,
   ): Promise<any> {
     try {
       const userID = req.user;
@@ -86,7 +86,7 @@ export class JobsService {
     createJobDto: CreateJobDto,
     req: Request,
     id: string,
-    file: Express.Multer.File,
+    file: Express.Multer.File | undefined,
   ) {
     try {
       const userID = req.user;
