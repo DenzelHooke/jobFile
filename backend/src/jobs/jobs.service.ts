@@ -114,13 +114,17 @@ export class JobsService {
         uploaded = await this.uploadService.uploadFile(file, userID);
       }
 
-      console.log('DTO: ', createJobDto);
-
       // Updates job but does not create  new one if job cannot be found
+
       const job = await this.jobModel.findByIdAndUpdate(
         id,
         {
-          ...createJobDto,
+          title: createJobDto.title,
+          company: createJobDto.company,
+          notes: createJobDto.notes,
+          salary: createJobDto.salary,
+          location: createJobDto.location,
+          color: createJobDto.color,
           resume: uploaded && uploaded.name,
           resumeUrl: uploaded && uploaded.url,
         },

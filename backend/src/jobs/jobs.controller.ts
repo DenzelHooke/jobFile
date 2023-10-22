@@ -57,7 +57,7 @@ export class JobsController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: maxFileUploadSize }),
-          // new FileTypeValidator({ fileType: 'pdf' }),
+          new FileTypeValidator({ fileType: 'pdf' }),
         ],
       }),
     )
@@ -82,6 +82,7 @@ export class JobsController {
             maxSize: maxFileUploadSize,
           }),
         ],
+        fileIsRequired: false,
       }),
     )
     file?: Express.Multer.File,
