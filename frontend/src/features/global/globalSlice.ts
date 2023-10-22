@@ -7,6 +7,7 @@ export interface GlobalState {
   message: string;
   isModal: Boolean;
   modalType: string;
+  isUser: Boolean;
 }
 
 const initialState: GlobalState = {
@@ -15,6 +16,7 @@ const initialState: GlobalState = {
   message: '',
   isModal: false,
   modalType: '',
+  isUser: false,
 };
 
 export const globalSlice = createSlice({
@@ -40,9 +42,31 @@ export const globalSlice = createSlice({
     setModalType: (state, action) => {
       state.modalType = action.payload;
     },
+    isUser: (state) => {
+      state.isUser = true;
+    },
+    isNotUser: (state) => {
+      // console.log('Setting user to false  ');
+      state.isUser = false;
+    },
+    resetAllGlobalState: (state) => {
+      state.isError = false;
+      state.isSuccess = false;
+      state.message = '';
+      state.isModal = false;
+      state.modalType = '';
+    },
   },
 });
 
-export const { setModal, setModalType, setError, setSuccess, setReset } =
-  globalSlice.actions;
+export const {
+  setModal,
+  setModalType,
+  setError,
+  setSuccess,
+  setReset,
+  isUser,
+  isNotUser,
+  resetAllGlobalState,
+} = globalSlice.actions;
 export default globalSlice.reducer;

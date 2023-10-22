@@ -26,7 +26,7 @@ const StateWatcher = () => {
 
     //Reset state to default
     dispatch(setReset());
-  }, [isError, isSuccess, message]);
+  }, [isError, isSuccess, message, dispatch]);
 
   return <div className="StateWatcher"></div>;
 };

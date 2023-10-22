@@ -10,6 +10,7 @@ import {
   sortCompanyFilter,
   sortPosFilter,
 } from '@/features/jobs/jobSlice';
+import { v4 as uuid } from 'uuid';
 
 const FilterJobs = () => {
   const { currentFilter } = useSelector((state: RootState) => state.jobs);
@@ -28,10 +29,6 @@ const FilterJobs = () => {
       icon: <TiSortAlphabetically size={20} />,
       onClick: sortPosFilter,
     },
-    // {
-    //   data: 'Position',
-    //   icon: <BsBuildingsFill size={20} />,
-    // },
   ];
 
   const onClick = (option: string, item: any) => {
@@ -47,6 +44,7 @@ const FilterJobs = () => {
       {options.map((item) => {
         return (
           <div
+            key={uuid()}
             className={`dashboard__filter__item ${
               item.data.toLowerCase() == currentFilter.toLowerCase()
                 ? 'active'

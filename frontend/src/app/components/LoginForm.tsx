@@ -5,8 +5,13 @@ import axios from 'axios';
 import { User } from '@/app/types/auth';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
-import { setError, setSuccess } from '@/features/global/globalSlice';
+import {
+  resetAllGlobalState,
+  setError,
+  setSuccess,
+} from '@/features/global/globalSlice';
 import { useRouter } from 'next/navigation';
+import { resetAllJobState } from '@/features/jobs/jobSlice';
 
 // import styles from '../styles/login.module.scss';
 
@@ -25,6 +30,14 @@ const LoginForm = () => {
         email,
         password,
       });
+    },
+    onSuccess: () => {
+      // TODO Call all reset states
+
+      dispatch(resetAllJobState());
+      dispatch(resetAllGlobalState());
+      console.log('Logging in');
+      Router.push('/dashboard');
     },
   });
 
@@ -57,13 +70,18 @@ const LoginForm = () => {
 
       // Set error with error message from backend
       dispatch(setError(errorResponse.response?.data?.message));
-    } else if (loginMutation.isSuccess) {
-      // Set success with success message
-      console.log('success');
-      dispatch(setSuccess('Account created succesfully'));
-      Router.push('/dashboard');
     }
-  }, [loginMutation.isError, loginMutation.isSuccess, setError, setSuccess]);
+    if (loginMutation.isSuccess) {
+      // Set success with success message
+      // dispatch(setSuccess(''));
+    }
+  }, [
+    loginMutation.isError,
+    loginMutation.isSuccess,
+    dispatch,
+    loginMutation.error,
+    Router,
+  ]);
 
   return (
     <div id="login-form" className="form">
@@ -109,7 +127,7 @@ const LoginForm = () => {
         </form>
       </div>
       <p className="info-form">
-        Don't have an account?
+        Don&apos;t have an account?
         <span>
           <Link href="/register">Sign up here!</Link>
         </span>

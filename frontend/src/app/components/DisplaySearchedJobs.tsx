@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react';
 import { CreateJobDto } from '../types/jobs';
 import Job from './Job';
+import { v4 as uuid } from 'uuid';
+
 interface props {
-  jobs: CreateJobDto[],
-  search_value: string,
-  onClick: (itemData: any) => void,
+  jobs: CreateJobDto[];
+  search_value: string;
+  onClick: (itemData: any) => void;
+  onDelete: (id: string) => void;
 }
 
 const filterJobs = (
@@ -18,19 +21,29 @@ const filterJobs = (
   );
 };
 
-const DisplaySearchedJobs = ({ jobs, search_value, onClick }: props) => {
+const DisplaySearchedJobs = ({
+  jobs,
+  search_value,
+  onClick,
+  onDelete,
+}: props) => {
   const [filteredJobs, setFilteredJobs] = useState<CreateJobDto[]>([]);
 
   useEffect(() => {
     const filtered = filterJobs(jobs, search_value);
     setFilteredJobs(filtered);
-  }, [search_value]);
+  }, [search_value, jobs]);
 
   return (
     <div className="dashboard__list__jobs">
       {filteredJobs &&
         filteredJobs.map((item) => (
-          <Job onItemClick={onClick} item={item} />
+          <Job
+            onItemClick={onClick}
+            onItemDelete={onDelete}
+            item={item}
+            key={uuid()}
+          />
         ))}
     </div>
   );

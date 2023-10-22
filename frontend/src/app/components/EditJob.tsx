@@ -100,17 +100,9 @@ const EditJob = ({ id }: Props) => {
       // Set error with error message from backend
       dispatch(setError(errorResponse.response?.data?.message));
     }
-  }, [jobMutation.isError, jobMutation.isSuccess, setError, setSuccess]);
+  }, [jobMutation.isError, jobMutation.isSuccess, jobMutation.error, dispatch]);
 
   useEffect(() => {
-    // const keys = {
-    //   title: 1,
-    //   company: 1,
-    //   notes: 1,
-    //   url: 1,
-    //   location: 1,
-    //   salary: 1,
-    // };
     if (data) {
       setJobData({
         ...data.data,

@@ -25,6 +25,11 @@ import { CustomFileInterceptor } from '../interceptors/CustomFileInterceptor';
 
 const maxFileUploadSize: number = 50000000;
 
+const validations: Array<any> = [
+  new MaxFileSizeValidator({ maxSize: maxFileUploadSize }),
+  new FileTypeValidator({ fileType: 'pdf' }),
+];
+
 @Controller('jobs')
 export class JobsController {
   constructor(private readonly jobService: JobsService) {}
@@ -55,10 +60,7 @@ export class JobsController {
     @Body() createJobDto: CreateJobDto,
     @UploadedFile(
       new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: maxFileUploadSize }),
-          new FileTypeValidator({ fileType: 'pdf' }),
-        ],
+        validators: validations,
       }),
     )
     file: Express.Multer.File,
@@ -77,11 +79,7 @@ export class JobsController {
     @Param('id') id: string,
     @UploadedFile(
       new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({
-            maxSize: maxFileUploadSize,
-          }),
-        ],
+        validators: validations,
         fileIsRequired: false,
       }),
     )

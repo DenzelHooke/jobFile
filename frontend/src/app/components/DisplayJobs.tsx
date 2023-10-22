@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { CreateJobDto } from '../types/jobs';
 
@@ -16,6 +16,7 @@ import { setJobs, setRefetch, setSelectedJob } from '@/features/jobs/jobSlice';
 import Job from './Job';
 import { RootState } from '../store';
 import DisplaySearchedJobs from './DisplaySearchedJobs';
+import { v4 as uuid } from 'uuid';
 
 const getJobs = async () => {
   return await axios.get('/jobs/');
@@ -26,6 +27,8 @@ const DisplayJobs = () => {
   const { jobs, search_value, canRefetch } = useSelector(
     (state: RootState) => state.jobs
   );
+
+  const queryClient = new QueryClient();
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['jobs'],
@@ -55,7 +58,7 @@ const DisplayJobs = () => {
   };
 
   const onItemDelete = async (id: string) => {
-    console.log(deleteJobQuery.mutate(id));
+    deleteJobQuery.mutate(id);
   };
 
   useEffect(() => {
@@ -69,7 +72,12 @@ const DisplayJobs = () => {
     if (data) {
       dispatch(setJobs(data.data));
     }
-  }, [data, canRefetch]);
+
+    return () => {
+      console.log('Clearing cache...');
+      queryClient.clear();
+    };
+  }, [data, canRefetch, dispatch, refetch]);
 
   if (isLoading) {
     return <div>Getting Jobs..</div>;
@@ -86,6 +94,7 @@ const DisplayJobs = () => {
           jobs={jobs}
           search_value={search_value}
           onClick={onItemClick}
+          onDelete={onItemDelete}
         />
       ) : (
         jobs?.map((item: CreateJobDto) => {
@@ -94,6 +103,7 @@ const DisplayJobs = () => {
               onItemClick={onItemClick}
               onItemDelete={onItemDelete}
               item={item}
+              key={uuid()}
             />
           );
         })

@@ -75,4 +75,18 @@ export class AuthController {
 
     // response.status(200).json(res);
   }
+
+  @Get('logout')
+  async logout(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<any> {
+    const token = request.cookies['token'];
+    console.log(request.cookies);
+
+    response.cookie('token', null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+  }
 }

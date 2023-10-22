@@ -68,7 +68,7 @@ const CreateJobForm = () => {
       // Set error with error message from backend
       dispatch(setError(errorResponse.response?.data?.message));
     }
-  }, [jobMutation.isError, setError, setSuccess]);
+  }, [jobMutation.isError, dispatch, jobMutation.error]);
 
   return (
     <div className="form dashboard__form">

@@ -74,6 +74,13 @@ export const jobSlice = createSlice({
     setRefetch: (state, action) => {
       state.canRefetch = action.payload;
     },
+    resetAllJobState: (state) => {
+      state.jobs = [];
+      state.canRefetch = false;
+      state.search_value = false;
+      state.selectedJob = null;
+      state.currentFilter = '';
+    },
   },
 });
 
@@ -86,5 +93,6 @@ export const {
   sortCompanyFilter,
   sortPosFilter,
   setRefetch,
+  resetAllJobState,
 } = jobSlice.actions;
 export default jobSlice.reducer;

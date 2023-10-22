@@ -22,6 +22,13 @@ const customStyles = {
 
 Modal.setAppElement('#app');
 
+//Tells typescript that our key will be a string, otherwise it wont work.
+interface ModalChildren {
+  addjob: React.JSX.Element;
+  editjob: React.JSX.Element;
+  [key: string]: any;
+}
+
 const DashboardModal = () => {
   const { isModal, modalType } = useSelector(
     (state: RootState) => state.global
@@ -32,13 +39,6 @@ const DashboardModal = () => {
     dispatch(setModal(false));
     dispatch(setModalType(''));
   };
-
-  //Tells typescript that our key will be a string, otherwise it wont work.
-  interface ModalChildren {
-    addjob: React.JSX.Element;
-    editjob: React.JSX.Element;
-    [key: string]: any;
-  }
 
   const modalChildren: ModalChildren = {
     addjob: <CreateJobForm />,

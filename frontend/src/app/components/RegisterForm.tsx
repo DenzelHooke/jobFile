@@ -6,20 +6,12 @@ import { User } from '@/app/types/auth';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { setError, setSuccess } from '@/features/global/globalSlice';
-import { AxiosError } from 'axios';
-
+import { useRouter } from 'next/navigation';
 // import styles from '../styles/login.module.scss';
 
-const wait = () => {
-  //ms
-  const wait_time = 100000000;
-
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(true), wait_time);
-  });
-};
-
 const RegisterForm = () => {
+  const Router = useRouter();
+
   //States
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -27,7 +19,7 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
 
   //Queries/muations
-  const queryClient = useQueryClient();
+
   const registerMutation = useMutation({
     mutationFn: async ({ username, email, password }: User) => {
       return await axios.post('auth/register/', {
@@ -35,8 +27,10 @@ const RegisterForm = () => {
         email,
         password,
       });
-
-      return await wait().then(() => true);
+    },
+    onSuccess: () => {
+      Router.push('/login');
+      dispatch(setSuccess('Account Successfully Registered'));
     },
   });
 
@@ -74,11 +68,8 @@ const RegisterForm = () => {
 
       // Set error with error message from backend
       dispatch(setError(errorResponse.response?.data?.message));
-    } else if (registerMutation.isSuccess) {
-      // Set success with success message
-      dispatch(setSuccess('Account created succesfully'));
     }
-  }, [registerMutation.isError, setError, setSuccess]);
+  }, [registerMutation.isError, registerMutation.error, dispatch]);
 
   return (
     <div id="register-form" className="form max-80">
