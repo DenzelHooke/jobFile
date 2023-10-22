@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { CreateJobDto } from '../types/jobs';
 
@@ -34,6 +34,16 @@ const DisplayJobs = () => {
     // refetchInterval: 10000,
   });
 
+  const deleteJobQuery = useMutation({
+    mutationFn: async (id: string) => {
+      axios.delete(`/jobs/${id}`);
+    },
+
+    onSuccess: () => {
+      dispatch(setRefetch(true));
+    },
+  });
+
   const onItemClick = (id: string | undefined) => {
     if (!id) {
       dispatch(setError('Job has no id key'));
@@ -44,13 +54,16 @@ const DisplayJobs = () => {
     dispatch(setSelectedJob(id));
   };
 
+  const onItemDelete = async (id: string) => {
+    console.log(deleteJobQuery.mutate(id));
+  };
+
   useEffect(() => {
     if (canRefetch) {
       // Set canRefetch to false as data is now refetched
       dispatch(setRefetch(false));
       // Refetch current job data
       refetch();
-      console.log('Refetch data');
     }
 
     if (data) {
@@ -76,7 +89,13 @@ const DisplayJobs = () => {
         />
       ) : (
         jobs?.map((item: CreateJobDto) => {
-          return <Job onItemClick={onItemClick} item={item} />;
+          return (
+            <Job
+              onItemClick={onItemClick}
+              onItemDelete={onItemDelete}
+              item={item}
+            />
+          );
         })
       )}
     </div>

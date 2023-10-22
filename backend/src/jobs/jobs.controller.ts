@@ -69,7 +69,8 @@ export class JobsController {
   @UseGuards(AuthGuard)
   @Put(':id')
   // UseInterceptors dectorator required to access formData(Files or not)
-  @UseInterceptors(CustomFileInterceptor)
+  // @UseInterceptors(CustomFileInterceptor)
+  @UseInterceptors(FileInterceptor('resume'))
   async updateOne(
     @Req() req: Request,
     @Body() createJobDto: CreateJobDto,
@@ -85,12 +86,16 @@ export class JobsController {
     )
     file?: Express.Multer.File,
   ) {
+    console.log(createJobDto);
     return this.jobService.updateOne(createJobDto, req, id, file);
   }
 
   @UseGuards(AuthGuard)
   @Delete(':id')
-  async deleteOne(@Param('id') id: string): Promise<Job | null> {
-    return this.jobService.deleteOne(id);
+  async deleteOne(
+    @Param('id') id: string,
+    @Req() request: Request,
+  ): Promise<Job | null> {
+    return this.jobService.deleteOne(id, request);
   }
 }

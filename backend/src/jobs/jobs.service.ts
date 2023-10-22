@@ -72,9 +72,17 @@ export class JobsService {
     }
   }
 
-  async deleteOne(id: string): Promise<Job | null> {
+  async deleteOne(id: string, req: Request): Promise<Job | null> {
     try {
+      const userID = req.user;
       const job = await this.jobModel.findByIdAndDelete({ _id: id });
+      if (!job) {
+        throw new NotFoundException();
+      }
+
+      if (userID != job.id) {
+        throw new NotFoundException();
+      }
 
       return job;
     } catch (error) {
@@ -98,12 +106,15 @@ export class JobsService {
       }
 
       if (!createJobDto) {
+        console.log('NO DTO!');
         throw new UnkownError('No body data included');
       }
 
       if (file) {
         uploaded = await this.uploadService.uploadFile(file, userID);
       }
+
+      console.log('DTO: ', createJobDto);
 
       // Updates job but does not create  new one if job cannot be found
       const job = await this.jobModel.findByIdAndUpdate(

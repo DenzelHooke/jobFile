@@ -43,7 +43,24 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
   gap: 40px;
 }
-.dashboard__list__jobs .job_item {
+
+.job__item__wrapper {
+  position: relative;
+}
+.job__item__wrapper .job__item__icon {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  scale: 1.1;
+  fill: red;
+  transition: all ease-in-out 600ms;
+  cursor: pointer;
+}
+.job__item__wrapper .job__item__icon:hover {
+  scale: 1.5;
+}
+
+.job_item {
   padding: 5px 10px;
   background-color: white;
   border-radius: 3px;
@@ -51,23 +68,18 @@
   box-shadow: rgba(0, 0, 0, 0.099) 0px 1px 4px;
   transition: all ease-in-out 100ms;
 }
-.dashboard__list__jobs .job_item:hover {
+.job_item:hover {
   cursor: pointer;
   background-color: rgb(244, 244, 244);
 }
-.dashboard__list__jobs .job_item .job__item__icon {
-  position: absolute;
-  right: -10px;
-  top: -10px;
-}
-.dashboard__list__jobs .job_item .job__item__title {
+.job_item .job__item__title {
   overflow: hidden;
   font-weight: 600;
   white-space: nowrap;
   height: 20px;
   text-overflow: ellipsis;
 }
-.dashboard__list__jobs .job_item .job__item__subtitle {
+.job_item .job__item__subtitle {
   font-size: 14px;
 }
 

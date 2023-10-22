@@ -148,13 +148,8 @@ body {
   color: #2b5ee3;
 }
 
-<<<<<<< HEAD
-.Toastify__toast {
-  z-index: 999999;
-=======
 .Toastify__toast-container {
   z-index: 10000000000000000;
->>>>>>> 5f81c7ce98b0a401fd905bdd1c61d5bdfb8e9407
 }
 
 .button-wrapper {
