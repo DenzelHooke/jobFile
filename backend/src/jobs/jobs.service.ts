@@ -49,7 +49,12 @@ export class JobsService {
       }
 
       const newJob = new this.jobModel({
-        ...createJobDto,
+        title: createJobDto.title,
+        company: createJobDto.company,
+        notes: createJobDto.notes,
+        salary: createJobDto.salary,
+        location: createJobDto.location,
+        color: createJobDto.color,
         user: userID,
         resume: uploaded && uploaded.name,
         resumeUrl: uploaded && uploaded.url,
