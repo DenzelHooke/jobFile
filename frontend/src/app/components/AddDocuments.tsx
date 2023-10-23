@@ -44,27 +44,6 @@ const AddDocuments = ({ setJobData, current, fileUrlState }: Props) => {
             placeholder="Add File"
           />
         </div>
-        <div className="form-wrapper">
-          <label htmlFor="cover">Cover Letter</label>
-          <input
-            id="cover"
-            className="input"
-            type="file"
-            placeholder="Add File"
-            // value={jobData.cover?.name}
-            onChange={(e) => {
-              const files = (e.target as HTMLInputElement).files;
-
-              if (files && files.length > 0) {
-                const file = files[0];
-                console.log(file);
-                setJobData((prevState: any) => {
-                  return { ...prevState, [e.target.id]: file };
-                });
-              }
-            }}
-          />
-        </div>
       </div>
     </>
   );
