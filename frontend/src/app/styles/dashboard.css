@@ -3,7 +3,8 @@
 }
 
 #dashboard {
-  min-height: calc(100vh - 60px);
+  overflow: hidden;
+  height: calc(100vh - 60px);
   display: grid;
   grid-template-columns: 250px 1fr;
   background-color: #fafafa;
@@ -42,6 +43,26 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
   gap: 40px;
+}
+
+.inner-form-container {
+  width: 100%;
+  flex: 100;
+}
+.inner-form-container form {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.inner-form-container form .button-wrapper {
+  align-self: flex-end;
+  width: 100%;
+}
+.inner-form-container .input__form__wrapper {
+  flex-grow: 1000;
+  display: flex;
+  flex-direction: column;
 }
 
 .job__item__wrapper {
@@ -85,10 +106,14 @@
 
 .dashboard__form {
   height: 600px;
+  display: flex;
+  flex-direction: column;
   flex: 100;
   width: 600px;
 }
 .dashboard__form .job__heading {
+  width: 100%;
+  flex: 0;
   padding: 60px 0;
 }
 .dashboard__form .job__heading small {
@@ -98,6 +123,7 @@
   position: relative;
   background-color: rgba(171, 141, 255, 0.04);
   border-bottom: 1px solid #c8c8c8;
+  width: 100%;
 }
 .dashboard__form .heading .form__options {
   display: flex;

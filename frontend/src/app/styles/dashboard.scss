@@ -5,7 +5,8 @@
 }
 
 #dashboard {
-  min-height: calc(100vh - 60px);
+  overflow: hidden;
+  height: calc(100vh - 60px);
   display: grid;
   grid-template-columns: 250px 1fr;
 
@@ -52,6 +53,29 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
   gap: 40px;
+}
+
+.inner-form-container {
+  width: 100%;
+
+  flex: 100;
+
+  form {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .button-wrapper {
+      align-self: flex-end;
+      width: 100%;
+    }
+  }
+  .input__form__wrapper {
+    flex-grow: 1000;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .job__item__wrapper {
@@ -106,8 +130,12 @@
 
 .dashboard__form {
   height: 600px;
+  display: flex;
+  flex-direction: column;
 
   .job__heading {
+    width: 100%;
+    flex: 0;
     padding: 60px 0;
     // font-size: $size-heading;
     small {
@@ -118,6 +146,7 @@
     position: relative;
     background-color: $color-mute-grey;
     border-bottom: 1px solid $border-edge;
+    width: 100%;
 
     .form__options {
       display: flex;

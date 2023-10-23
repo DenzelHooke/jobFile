@@ -8,10 +8,6 @@
   color: rgb(27, 27, 27);
 }
 
-body {
-  min-height: 100vh;
-}
-
 .container {
   max-width: 1000px;
   margin: 0 auto;
