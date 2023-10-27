@@ -17,6 +17,7 @@ import Job from './Job';
 import { RootState } from '../store';
 import DisplaySearchedJobs from './DisplaySearchedJobs';
 import { v4 as uuid } from 'uuid';
+import SkeletonJob from './SkeletonJob';
 
 const getJobs = async () => {
   return await axios.get('/jobs/');
@@ -80,7 +81,29 @@ const DisplayJobs = () => {
   }, [data, canRefetch, dispatch, refetch]);
 
   if (isLoading) {
-    return <div>Getting Jobs..</div>;
+    return (
+      <div className="dashboard__list__jobs">
+        {[
+          <>
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+            <SkeletonJob />
+          </>,
+        ]}
+      </div>
+    );
   }
 
   if (isError) {
