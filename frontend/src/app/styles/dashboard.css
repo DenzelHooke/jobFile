@@ -235,7 +235,7 @@
 
 .skeleton {
   opacity: 0.8;
-  animation: skeleton-loading 1s linear infinite alternate;
+  animation: skeleton-loading 900ms linear infinite alternate;
 }
 
 .skeleton-text {

@@ -122,14 +122,15 @@
   margin-bottom: 20px;
 }
 .form .heading {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   text-align: center;
 }
 .form .accent-text {
   color: #353531;
 }
 .form .form-wrapper label {
-  display: none;
+  margin: 5px 0;
+  display: block;
 }
 .form .form-wrapper input {
   border-radius: 6px;

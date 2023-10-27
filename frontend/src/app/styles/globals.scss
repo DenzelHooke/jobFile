@@ -149,7 +149,7 @@ body {
   // padding: 20px;
 
   .heading {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     text-align: center;
   }
 
@@ -159,7 +159,8 @@ body {
 
   .form-wrapper {
     label {
-      display: none;
+      margin: 5px 0;
+      display: block;
     }
 
     input {
