@@ -1,5 +1,4 @@
 import React from 'react';
-import { BiSolidPlusCircle } from 'react-icons/bi';
 
 const SkeletonJob = () => {
   return (

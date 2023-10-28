@@ -81,7 +81,7 @@
 }
 .form-wrapper label {
   display: block;
-  font-weight: bold;
+  font-weight: 300;
 }
 .form-wrapper input {
   border: none;

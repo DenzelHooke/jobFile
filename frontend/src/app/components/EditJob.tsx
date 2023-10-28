@@ -120,7 +120,7 @@ const EditJob = ({ id }: Props) => {
   return (
     <div className="form dashboard__form">
       <div className="job__heading heading">
-        <h2 className="heading-text"></h2>
+        <h2 className="heading-text">{jobData.company}</h2>
         <small className="accent-text small-text">Add a job!</small>
         <div className="form__options">
           <div
