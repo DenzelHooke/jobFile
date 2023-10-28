@@ -70,7 +70,7 @@ export class UploadService {
     const command = new GetObjectCommand(getObjectParams);
 
     //Presigned url
-    return await getSignedUrl(this.s3Client, command, { expiresIn: 3600 });
+    return await getSignedUrl(this.s3Client, command, { expiresIn: 2592000 });
   }
 
   async generatePresignedUrl() {}

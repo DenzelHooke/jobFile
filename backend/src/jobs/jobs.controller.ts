@@ -23,6 +23,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CustomFileSizeValidation } from 'src/upload/handling/handlers';
 import { CustomFileInterceptor } from '../interceptors/CustomFileInterceptor';
 
+// 5MB
 const maxFileUploadSize: number = 50000000;
 
 const validations: Array<any> = [
