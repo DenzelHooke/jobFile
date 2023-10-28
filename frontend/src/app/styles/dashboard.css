@@ -247,6 +247,10 @@
   width: 50%;
 }
 
+.doc-wrapper {
+  margin-bottom: 30px;
+}
+
 @keyframes skeleton-loading {
   0% {
     background-color: hsl(200, 20%, 70%);

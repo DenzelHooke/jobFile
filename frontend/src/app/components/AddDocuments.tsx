@@ -18,13 +18,17 @@ const AddDocuments = ({ setJobData, current, fileUrlState }: Props) => {
             current.toLowerCase() !== 'documents' && 'hide'
           }`}>
           {fileUrlState && (
-            <iframe
-              src={`${fileUrlState.resumeUrl}`}
-              width="400px"
-              height="380px"></iframe>
+            <div className="justify-center doc-wrapper">
+              <iframe
+                src={`${fileUrlState.resumeUrl}`}
+                width="400px"
+                height="380px"></iframe>
+            </div>
           )}
           <div className="form-wrapper">
-            <label htmlFor="resume">Resume</label>
+            <label htmlFor="resume">
+              {fileUrlState?.resumeUrl ? 'Update Resume' : 'Add Resume'}
+            </label>
             <input
               id="resume"
               className="input"
