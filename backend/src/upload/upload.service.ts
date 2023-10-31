@@ -60,6 +60,8 @@ export class UploadService {
   }
 
   async genPresignedUrl(key: string) {
+    // 7 Days in seconds
+    const expireTime: number = 604800;
     //Generates a presigned url for public viewing
 
     const getObjectParams = {
@@ -70,7 +72,9 @@ export class UploadService {
     const command = new GetObjectCommand(getObjectParams);
 
     //Presigned url
-    return await getSignedUrl(this.s3Client, command, { expiresIn: 3600 * 12 });
+    return await getSignedUrl(this.s3Client, command, {
+      expiresIn: expireTime,
+    });
   }
 
   async generatePresignedUrl() {}
