@@ -66,6 +66,7 @@ export class JobsController {
     )
     file: Express.Multer.File,
   ): Promise<Job> {
+    console.log(createJobDto)
     return this.jobService.createOne(createJobDto, req, file);
   }
 

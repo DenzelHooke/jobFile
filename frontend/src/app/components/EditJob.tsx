@@ -21,7 +21,7 @@ const createFormData = (jobData: any) => {
   for (const key in jobData) {
     formData.append(key, jobData[key]);
   }
-  console.log(formData);
+  // console.log(formData);
 
   return formData;
 };

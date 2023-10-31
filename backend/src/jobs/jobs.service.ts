@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common/exceptions';
 import { UnkownError } from 'src/exceptions/validation.exception';
 import { UploadService } from 'src/upload/upload.service';
+import { create } from 'domain';
 
 declare module 'express' {
   interface Request {
@@ -52,6 +53,7 @@ export class JobsService {
         title: createJobDto.title,
         company: createJobDto.company,
         notes: createJobDto.notes,
+        url: createJobDto.url,
         salary: createJobDto.salary,
         location: createJobDto.location,
         color: createJobDto.color,
@@ -129,6 +131,7 @@ export class JobsService {
           notes: createJobDto.notes,
           salary: createJobDto.salary,
           location: createJobDto.location,
+          url: createJobDto.url,
           color: createJobDto.color,
           resume: uploaded && uploaded.name,
           resumeUrl: uploaded && uploaded.url,
