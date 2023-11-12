@@ -1,7 +1,7 @@
 # Resume Tracker
 When I was applying for jobs, I always found it annoying to keep track of 30+ different resumes/cover letters so I made a simple tool that allows you to categorize them by company/position and have it all stored in one central place. 
 
-Utilizes Next.js and React Query for the frontend & Nest.js for the backned. Features user authentication. 
+Utilizes Next.js and React Query for the frontend & Nest.js for the backend. Features user authentication. 
 
 ### Technologies Used
 - Next.js 13
