@@ -1,18 +1,18 @@
-'use client';
+"use client";
 import React, {
   BaseSyntheticEvent,
   FormEvent,
   useEffect,
   useState,
-} from 'react';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { setError, setSuccess } from '@/features/global/globalSlice';
-import { useDispatch } from 'react-redux';
-import { CreateJobDto } from '../types/jobs';
-import CreateJobMainForm from './CreateJobMainForm';
-import AddDocuments from './AddDocuments';
-import { setRefetch } from '@/features/jobs/jobSlice';
+} from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { setError, setSuccess } from "@/features/global/globalSlice";
+import { useDispatch } from "react-redux";
+import { CreateJobDto } from "../types/jobs";
+import CreateJobMainForm from "./CreateJobMainForm";
+import AddDocuments from "./AddDocuments";
+import { setRefetch } from "@/features/jobs/jobSlice";
 
 const createFormData = (jobData: any) => {
   const formData = new FormData();
@@ -27,12 +27,12 @@ const createFormData = (jobData: any) => {
 const CreateJobForm = () => {
   const dispatch = useDispatch();
   const [jobData, setJobData] = useState({
-    title: '',
-    company: '',
-    notes: '',
-    url: '',
-    location: '',
-    color: '',
+    title: "",
+    company: "",
+    notes: "",
+    url: "",
+    location: "",
+    color: "",
     salary: 0,
     resume: null,
     cover: null,
@@ -40,22 +40,33 @@ const CreateJobForm = () => {
 
   const jobMutation = useMutation({
     mutationFn: async (data: FormData) => {
-      return await axios.post('/jobs/', data);
+      return await axios.post("/jobs/", data);
     },
 
     onSuccess: (context) => {
       // Sets refetch to true so we can display newly created job to user
       dispatch(setRefetch(true));
-      console.log('Setting refetch to ', true);
+      console.log("Setting refetch to ", true);
       // Set success with success message
-      dispatch(setSuccess('Job Created'));
+      dispatch(setSuccess("Job Created"));
     },
   });
 
-  const [currentOption, setCurrentOption] = useState('info');
+  const [currentOption, setCurrentOption] = useState("info");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!jobData.company) {
+      dispatch(setError("Please enter company name"));
+      return;
+    }
+
+    if (!jobData.title) {
+      dispatch(setError("Please enter job title"));
+      return;
+    }
+
     const data = createFormData(jobData);
 
     jobMutation.mutate(data);
@@ -77,15 +88,17 @@ const CreateJobForm = () => {
         <small className="accent-text small-text">Add a job!</small>
         <div className="form__options">
           <div
-            className={`form__option ${currentOption === 'info' && 'selected'}`}
-            onClick={() => setCurrentOption('info')}>
+            className={`form__option ${currentOption === "info" && "selected"}`}
+            onClick={() => setCurrentOption("info")}
+          >
             Job Info
           </div>
           <div
             className={`form__option ${
-              currentOption === 'documents' && 'selected'
+              currentOption === "documents" && "selected"
             }`}
-            onClick={() => setCurrentOption('documents')}>
+            onClick={() => setCurrentOption("documents")}
+          >
             Documents
           </div>
         </div>
